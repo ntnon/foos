@@ -25,6 +25,10 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
+data class MatchImportOptions(
+    val includePositionStats: Boolean = true
+)
+
 @Service
 @Transactional
 class StatsService(
@@ -40,14 +44,15 @@ class StatsService(
         match: MatchEntity,
         newT1OffenseElo: Double, newT1DefenseElo: Double,
         newT2OffenseElo: Double, newT2DefenseElo: Double,
-        newT1TeamElo: Double, newT2TeamElo: Double
+        newT1TeamElo: Double, newT2TeamElo: Double,
+        options: MatchImportOptions = MatchImportOptions()
     ) {
         updateTeamStats(match.team1.offense.playerId!!, match.team1.defense.playerId!!, match, newT1TeamElo)
         updateTeamStats(match.team2.offense.playerId!!, match.team2.defense.playerId!!, match, newT2TeamElo)
-        updatePlayerStats(match.team1.offense.playerId!!, match, newT1OffenseElo)
-        updatePlayerStats(match.team1.defense.playerId!!, match, newT1DefenseElo)
-        updatePlayerStats(match.team2.offense.playerId!!, match, newT2OffenseElo)
-        updatePlayerStats(match.team2.defense.playerId!!, match, newT2DefenseElo)
+        updatePlayerStats(match.team1.offense.playerId!!, match, newT1OffenseElo, options)
+        updatePlayerStats(match.team1.defense.playerId!!, match, newT1DefenseElo, options)
+        updatePlayerStats(match.team2.offense.playerId!!, match, newT2OffenseElo, options)
+        updatePlayerStats(match.team2.defense.playerId!!, match, newT2DefenseElo, options)
     }
 
     private fun updateTeamStats(player1Id: Long, player2Id: Long, match: MatchEntity, newEloRating: Double) {
@@ -106,7 +111,7 @@ class StatsService(
         ))
     }
 
-    private fun updatePlayerStats(playerId: Long, match: MatchEntity, newEloRating: Double) {
+    private fun updatePlayerStats(playerId: Long, match: MatchEntity, newEloRating: Double, options: MatchImportOptions = MatchImportOptions()) {
         val allPlayers = listOf(match.team1.offense, match.team1.defense, match.team2.offense, match.team2.defense)
         val player = allPlayers.first { it.playerId == playerId }
         val stats = playerStatsRepository.findByPlayerPlayerId(playerId)
@@ -125,10 +130,10 @@ class StatsService(
         val winInc:     Int = if (won) 1 else 0
         val lossInc:    Int = if (lost) 1 else 0
         val drawInc:    Int = if (drew) 1 else 0
-        val offInc:     Int = if (isOffense) 1 else 0
-        val defInc:     Int = if (isDefense) 1 else 0
-        val offWinInc:  Int = if (isOffense && won) 1 else 0
-        val defWinInc:  Int = if (isDefense && won) 1 else 0
+        val offInc:     Int = if (isOffense && options.includePositionStats) 1 else 0
+        val defInc:     Int = if (isDefense && options.includePositionStats) 1 else 0
+        val offWinInc:  Int = if (isOffense && won && options.includePositionStats) 1 else 0
+        val defWinInc:  Int = if (isDefense && won && options.includePositionStats) 1 else 0
         val redInc:     Int = if (teamColor == TeamColor.RED) 1 else 0
         val blueInc:    Int = if (teamColor == TeamColor.BLUE) 1 else 0
         val redWinInc:  Int = if (teamColor == TeamColor.RED && won) 1 else 0
@@ -151,7 +156,8 @@ class StatsService(
                 (stats.winsAsOffense + offWinInc).toDouble() / (stats.matchesAsOffense + offInc) else 0.0,
             positionWinRateDefense = if (stats.matchesAsDefense + defInc > 0)
                 (stats.winsAsDefense + defWinInc).toDouble() / (stats.matchesAsDefense + defInc) else 0.0,
-            bestPosition = if (stats.positionWinRateOffense > stats.positionWinRateDefense) "OFFENSE" else "DEFENSE",
+            bestPosition = if (!options.includePositionStats) stats.bestPosition
+                           else if (stats.positionWinRateOffense > stats.positionWinRateDefense) "OFFENSE" else "DEFENSE",
             matchesAsRed  = stats.matchesAsRed + redInc,
             winsAsRed     = stats.winsAsRed + redWinInc,
             matchesAsBlue = stats.matchesAsBlue + blueInc,

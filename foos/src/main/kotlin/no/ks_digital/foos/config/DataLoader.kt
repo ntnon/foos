@@ -89,33 +89,32 @@ class DataLoader(
         }
 
         val matches = listOf(
-            /*
-            Matches without scores.
 
             // Mandag 09.feb - Nora & Aki 1 - 0 Anton & Sondre FS
-            Pair(LocalDate.of(2026, 2, 9), Triple(getOrCreateTeam("Nora", "Aki", TeamColor.BLUE), getOrCreateTeam("Anton", "Sondre FS", TeamColor.RED), Pair(null, null))),
+            Pair(LocalDate.of(2026, 2, 9), Triple(getOrCreateTeam("Nora", "Aki", TeamColor.BLUE), getOrCreateTeam("Anton", "Sondre FS", TeamColor.RED), Pair(10, 8))),
 
             // Tirsdag 10.feb - Nora & Kolbein 1 - 0 Anton & Aki
-            Pair(LocalDate.of(2026, 2, 10), Triple(getOrCreateTeam("Nora", "Kolbein", TeamColor.BLUE), getOrCreateTeam("Anton", "Aki", TeamColor.RED), Pair(null, null))),
-            Pair(LocalDate.of(2026, 2, 10), Triple(getOrCreateTeam("Håkon", "Kolbein", TeamColor.BLUE), getOrCreateTeam("Andreas", "Aki", TeamColor.RED), Pair(null, null))),
+            Pair(LocalDate.of(2026, 2, 10), Triple(getOrCreateTeam("Nora", "Kolbein", TeamColor.BLUE), getOrCreateTeam("Anton", "Aki", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 2, 10), Triple(getOrCreateTeam("Håkon", "Kolbein", TeamColor.BLUE), getOrCreateTeam("Andreas", "Aki", TeamColor.RED), Pair(10, 8))),
 
             // Onsdag 11.feb
-            Pair(LocalDate.of(2026, 2, 11), Triple(getOrCreateTeam("Kolbein", "Nora", TeamColor.BLUE), getOrCreateTeam("Stian", "Jakob", TeamColor.RED), Pair(null, null))),
-            Pair(LocalDate.of(2026, 2, 11), Triple(getOrCreateTeam("Kolbein", "Anton", TeamColor.BLUE), getOrCreateTeam("Carl-Trygve", "Roar", TeamColor.RED), Pair(null, null))),
-            Pair(LocalDate.of(2026, 2, 11), Triple(getOrCreateTeam("Kolbein", "Andreas", TeamColor.BLUE), getOrCreateTeam("Håkon", "Aki", TeamColor.RED), Pair(null, null))),
+            Pair(LocalDate.of(2026, 2, 11), Triple(getOrCreateTeam("Kolbein", "Nora", TeamColor.BLUE), getOrCreateTeam("Stian", "Jakob", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 2, 11), Triple(getOrCreateTeam("Kolbein", "Anton", TeamColor.BLUE), getOrCreateTeam("Carl-Trygve", "Roar", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 2, 11), Triple(getOrCreateTeam("Kolbein", "Andreas", TeamColor.BLUE), getOrCreateTeam("Håkon", "Aki", TeamColor.RED), Pair(10, 8))),
 
             // Torsdag 12.feb
-            Pair(LocalDate.of(2026, 2, 12), Triple(getOrCreateTeam("Kolbein", "Andreas", TeamColor.RED), getOrCreateTeam("Nora", "Aki", TeamColor.BLUE), Pair(null, null))),
-            Pair(LocalDate.of(2026, 2, 12), Triple(getOrCreateTeam("Kolbein", "Anton", TeamColor.RED), getOrCreateTeam("Nora", "Aki", TeamColor.BLUE), Pair(null, null))),
+            Pair(LocalDate.of(2026, 2, 12), Triple(getOrCreateTeam("Kolbein", "Andreas", TeamColor.RED), getOrCreateTeam("Nora", "Aki", TeamColor.BLUE), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 2, 12), Triple(getOrCreateTeam("Kolbein", "Anton", TeamColor.RED), getOrCreateTeam("Nora", "Aki", TeamColor.BLUE), Pair(10, 8))),
 
 
             // Onsdag 18.feb
-            Pair(LocalDate.of(2026, 2, 18), Triple(getOrCreateTeam("Såndræ F", "Roar", TeamColor.BLUE), getOrCreateTeam("Anton", "Nora", TeamColor.RED), Pair(null, null))),
-            Pair(LocalDate.of(2026, 2, 18), Triple(getOrCreateTeam("Kolbein", "Aki", TeamColor.BLUE), getOrCreateTeam("Anton", "Håkon", TeamColor.RED), Pair(null, null))),
+            Pair(LocalDate.of(2026, 2, 18), Triple(getOrCreateTeam("Såndræ F", "Roar", TeamColor.BLUE), getOrCreateTeam("Anton", "Nora", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 2, 18), Triple(getOrCreateTeam("Kolbein", "Aki", TeamColor.BLUE), getOrCreateTeam("Anton", "Håkon", TeamColor.RED), Pair(10, 8))),
 
-            Pair(LocalDate.of(2026, 2, 19), Triple(getOrCreateTeam("Aki", "Såndræ F", TeamColor.BLUE), getOrCreateTeam("Nora", "Stian M", TeamColor.RED), Pair(null, null))),
+            Pair(LocalDate.of(2026, 2, 19), Triple(getOrCreateTeam("Aki", "Såndræ F", TeamColor.BLUE), getOrCreateTeam("Nora", "Stian M", TeamColor.RED), Pair(10, 8))),
 
-*/
+            // Matches above given 10-8 scores
+
             // Fredag 13.feb
             Pair(LocalDate.of(2026, 2, 13), Triple(getOrCreateTeam("Kolbein", "Sondre FS", TeamColor.RED), getOrCreateTeam("Aki", "Anton", TeamColor.BLUE), Pair(10, 5))),
             Pair(LocalDate.of(2026, 2, 13), Triple(getOrCreateTeam("Stian M", "Erlend", TeamColor.RED), getOrCreateTeam("Nora", "Jakob", TeamColor.BLUE), Pair(10, 9))),
@@ -127,7 +126,6 @@ class DataLoader(
 
             // Tirsdag 17.feb - Andreas & Aki (B) 1 - 1 Kolbein & Håkon (10-8)
             Pair(LocalDate.of(2026, 2, 17), Triple(getOrCreateTeam("Andreas", "Aki", TeamColor.BLUE), getOrCreateTeam("Kolbein", "Håkon", TeamColor.RED), Pair(10, 8))),
-
 
 
             // Torsdag 19.feb
@@ -178,4 +176,3 @@ class DataLoader(
         }
     }
 }
-
