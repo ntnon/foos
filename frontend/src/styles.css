@@ -1,0 +1,80 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+
+  /* Field green - dark */
+  --color-field-900: #003d22;
+  --color-field-800: #005530;
+  --color-field-700: #006f3c;
+  --color-field-600: #008a4b;
+  --color-field-500: #27b376;
+  --color-field-400: #4fc98f;
+  --color-field-300: #7edaad;
+  --color-field-200: #b0ecd0;
+  --color-field-100: #d8f5e8;
+  --color-field-50:  #edfbf3;
+
+  /* Brand blue */
+  --color-brand-900: #0f2147;
+  --color-brand-800: #1a3470;
+  --color-brand-700: #1f3e87;
+  --color-brand-600: #264b96;
+  --color-brand-500: #3860b0;
+  --color-brand-400: #5b7fc4;
+  --color-brand-300: #8aa3d8;
+  --color-brand-200: #bfcfee;
+  --color-brand-100: #dde7f7;
+  --color-brand-50:  #eef3fb;
+
+  /* Amber / highlight */
+  --color-amber-900: #7a4200;
+  --color-amber-700: #c46d00;
+  --color-amber-500: #f9a73e;
+  --color-amber-300: #fcd08e;
+  --color-amber-100: #fef0d9;
+  --color-amber-50:  #fff8ee;
+
+  /* Team red */
+  --color-team-red-900: #5c0d14;
+  --color-team-red-700: #96151f;
+  --color-team-red-600: #bf212f;
+  --color-team-red-500: #d63340;
+  --color-team-red-400: #e86470;
+  --color-team-red-200: #f5b8bc;
+  --color-team-red-100: #fbd9db;
+  --color-team-red-50:  #fef0f1;
+
+  /* Team blue (brighter variant of brand) */
+  --color-team-blue-700: #264b96;
+  --color-team-blue-500: #3b82f6;
+  --color-team-blue-400: #60a5fa;
+  --color-team-blue-200: #bfdbfe;
+  --color-team-blue-100: #dbeafe;
+  --color-team-blue-50:  #eff6ff;
+
+  /* Neutrals / pitch */
+  --color-pitch-900: #111827;
+  --color-pitch-700: #374151;
+  --color-pitch-500: #6b7280;
+  --color-pitch-300: #d1d5db;
+  --color-pitch-100: #f3f4f6;
+  --color-pitch-50:  #f9fafb;
+}
+
+body {
+  font-family: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth nav tab active indicator */
+nav a {
+  border-bottom: 3px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.2s ease;
+}
+nav a.border-b-3 {
+  border-bottom-color: var(--color-amber-500);
+}
+

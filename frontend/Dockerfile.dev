@@ -1,0 +1,19 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy source files
+COPY . .
+
+# Expose port for dev server
+EXPOSE 4200
+
+# Run Angular development server with file watching
+CMD ["npm", "start"]
+

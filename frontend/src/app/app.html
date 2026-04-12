@@ -1,0 +1,56 @@
+<div class="min-h-screen bg-amber-100 font-sans">
+
+  <!-- Navbar -->
+  <header class="w-full bg-field-800 border-b-4 border-field-900 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 flex items-center h-16 gap-0">
+
+      <!-- Logo -->
+      <a routerLink="/" class="flex items-center gap-2 mr-8 group shrink-0">
+        <span class="text-3xl leading-none select-none">⚽</span>
+        <span class="font-black text-white text-lg tracking-tight leading-none group-hover:text-amber-300 transition-colors">
+          Foos<span class="text-amber-400">ball</span>
+        </span>
+      </a>
+
+      <!-- Nav links — fill remaining space -->
+      <nav class="flex flex-1 h-full">
+        <a routerLink="/"
+           routerLinkActive="border-b-3 border-amber-400 text-white bg-white/10"
+           [routerLinkActiveOptions]="{exact: true}"
+           class="relative flex items-center px-5 h-full text-brand-200 hover:text-white hover:bg-white/10 transition-all font-semibold text-sm tracking-wide">
+          🏠 Home
+        </a>
+        <a routerLink="/matches"
+           routerLinkActive="border-b-3 border-amber-400 text-white bg-white/10"
+           class="relative flex items-center px-5 h-full text-brand-200 hover:text-white hover:bg-white/10 transition-all font-semibold text-sm tracking-wide">
+          🎮 Matches
+        </a>
+        <a routerLink="/stats/players"
+           routerLinkActive="border-b-3 border-amber-400 text-white bg-white/10"
+           class="relative flex items-center px-5 h-full text-brand-200 hover:text-white hover:bg-white/10 transition-all font-semibold text-sm tracking-wide">
+          👤 Players
+        </a>
+        <a routerLink="/stats/teams"
+           routerLinkActive="border-b-3 border-amber-400 text-white bg-white/10"
+           class="relative flex items-center px-5 h-full text-brand-200 hover:text-white hover:bg-white/10 transition-all font-semibold text-sm tracking-wide">
+          🤝 Teams
+        </a>
+
+      </nav>
+
+    </div>
+  </header>
+
+  @if (error()) {
+    <div class="flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 mx-4 mt-3 rounded-lg shadow-sm">
+      <span class="text-lg">⚠️</span>
+      <span class="flex-1">{{ error() }}</span>
+      <button (click)="dismissError()" class="text-red-400 hover:text-red-600 font-bold text-lg leading-none">✕</button>
+    </div>
+  }
+
+  <main class="pt-6">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>
