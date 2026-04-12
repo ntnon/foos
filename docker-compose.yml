@@ -1,0 +1,65 @@
+services:
+  backend:
+    build:
+      context: foos
+    container_name: foos-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/foos
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - foos-network
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: foos-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - foos-network
+
+  db:
+    image: postgres:15
+    container_name: foos-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: foos
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_backups:/backups
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d foos"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - foos-network
+
+volumes:
+  postgres_data:
+    driver: local
+  postgres_backups:
+    driver: local
+
+networks:
+  foos-network:
+    driver: bridge

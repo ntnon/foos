@@ -1,0 +1,20 @@
+FROM eclipse-temurin:21-jdk-alpine
+
+WORKDIR /app
+
+# Copy source and build files
+COPY pom.xml .
+COPY src src
+COPY mvnw mvnw
+COPY .mvn .mvn
+COPY wrapper wrapper
+
+# Install Maven dependencies
+RUN chmod +x mvnw
+
+# Expose port and start with watch mode
+EXPOSE 8080
+
+# Run Spring Boot with devtools and file watching
+CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.fork=false", "-Dspring-boot.run.profiles=dev", "-Dspring-boot.run.arguments=--server.port=8080"]
+

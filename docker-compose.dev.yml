@@ -1,0 +1,22 @@
+services:
+  backend:
+    build:
+      context: foos
+      dockerfile: Dockerfile.dev
+    container_name: foos-backend
+    # map backend to host port 8081 in dev to avoid conflict with production 8080
+    # dev Dockerfile activates 'dev' profile which uses H2 in-memory database
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./foos/src:/app/src
+      - ./foos/pom.xml:/app/pom.xml
+    restart: unless-stopped
+    networks:
+      - foos-network
+
+volumes: {}
+
+networks:
+  foos-network:
+    driver: bridge
