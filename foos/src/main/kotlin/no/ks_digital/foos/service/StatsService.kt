@@ -9,7 +9,7 @@ import no.ks_digital.foos.dto.RivalSummary
 import no.ks_digital.foos.dto.RivalTeamSummary
 import no.ks_digital.foos.dto.TeamLeaderboard
 import no.ks_digital.foos.dto.TeamStatsResponse
-import no.ks_digital.foos.entity.MatchEntity
+import no.ks_digital.foos.entity.Match
 import no.ks_digital.foos.entity.PlayerStats
 import no.ks_digital.foos.entity.TeamColor
 import no.ks_digital.foos.entity.TeamStats
@@ -41,7 +41,7 @@ class StatsService(
 ) {
 
     fun updateStatsForMatch(
-        match: MatchEntity,
+        match: Match,
         newT1OffenseElo: Double, newT1DefenseElo: Double,
         newT2OffenseElo: Double, newT2DefenseElo: Double,
         newT1TeamElo: Double, newT2TeamElo: Double,
@@ -55,7 +55,7 @@ class StatsService(
         updatePlayerStats(match.team2.defense.playerId!!, match, newT2DefenseElo, options)
     }
 
-    private fun updateTeamStats(player1Id: Long, player2Id: Long, match: MatchEntity, newEloRating: Double) {
+    private fun updateTeamStats(player1Id: Long, player2Id: Long, match: Match, newEloRating: Double) {
         val allPlayers = listOf(match.team1.offense, match.team1.defense, match.team2.offense, match.team2.defense)
         val player1 = allPlayers.first { it.playerId == player1Id }
         val player2 = allPlayers.first { it.playerId == player2Id }
@@ -111,7 +111,7 @@ class StatsService(
         ))
     }
 
-    private fun updatePlayerStats(playerId: Long, match: MatchEntity, newEloRating: Double, options: MatchImportOptions = MatchImportOptions()) {
+    private fun updatePlayerStats(playerId: Long, match: Match, newEloRating: Double, options: MatchImportOptions = MatchImportOptions()) {
         val allPlayers = listOf(match.team1.offense, match.team1.defense, match.team2.offense, match.team2.defense)
         val player = allPlayers.first { it.playerId == playerId }
         val stats = playerStatsRepository.findByPlayerPlayerId(playerId)

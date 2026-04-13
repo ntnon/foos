@@ -19,7 +19,7 @@ data class PlayerMatch(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "match_id", nullable = false)
-    val match: MatchEntity,
+    val match: Match,
 
     /** Which team this player was on in this match */
     @Enumerated(EnumType.STRING)

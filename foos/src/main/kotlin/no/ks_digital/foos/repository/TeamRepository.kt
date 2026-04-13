@@ -21,7 +21,7 @@ interface TeamRepository : JpaRepository<Team, Long> {
     ): Optional<Team>
 
     @Query("""
-        SELECT COUNT(m) FROM MatchEntity m
+        SELECT COUNT(m) FROM Match m
         WHERE m.team1.teamColor = :color
           AND ((m.team1.offense.playerId = :playerAId AND m.team1.defense.playerId = :playerBId)
             OR (m.team1.offense.playerId = :playerBId AND m.team1.defense.playerId = :playerAId))

@@ -19,7 +19,7 @@ data class TeamMatch(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "match_id", nullable = false)
-    val match: MatchEntity,
+    val match: Match,
 
     @Column(nullable = false)
     val won: Boolean,
@@ -27,4 +27,3 @@ data class TeamMatch(
     @Column(nullable = false)
     val gameScore: Int
 )
-

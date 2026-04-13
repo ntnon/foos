@@ -17,6 +17,3 @@ INSERT INTO player (name) VALUES ('Stian M');
 INSERT INTO player (name) VALUES ('Erlend');
 INSERT INTO player (name) VALUES ('Andreas MB');
 INSERT INTO player (name) VALUES ('Daniel');
-INSERT INTO player (name) VALUES ('Roar');
-INSERT INTO player (name) VALUES ('Eivind');
-

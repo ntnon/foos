@@ -1,12 +1,12 @@
 package no.ks_digital.foos.service
 
-import no.ks_digital.foos.dto.Match
+import no.ks_digital.foos.dto.MatchResponse
 import no.ks_digital.foos.dto.MatchPlayer
 import no.ks_digital.foos.dto.MatchRequest
 import no.ks_digital.foos.dto.MatchTeam
 import no.ks_digital.foos.dto.TeamStatsResponse
 import no.ks_digital.foos.dto.TeamRequest
-import no.ks_digital.foos.entity.MatchEntity
+import no.ks_digital.foos.entity.Match
 import no.ks_digital.foos.entity.Matchup
 import no.ks_digital.foos.entity.PlayerMatch
 import no.ks_digital.foos.entity.PlayerRating
@@ -47,18 +47,18 @@ class MatchService(
     private val statsService: StatsService
 ) {
 
-    fun getRecentMatches(limit: Int): List<MatchEntity> {
+    fun getRecentMatches(limit: Int): List<Match> {
         return matchRepository.findAll()
             .sortedByDescending { it.matchDate }
             .take(limit)
     }
 
-    fun getRecentMatchResults(limit: Int): List<Match> {
+    fun getRecentMatchResults(limit: Int): List<MatchResponse> {
         val matches = getRecentMatches(limit)
         return matches.map { match -> toMatch(match) }
     }
 
-    fun getMatchesByPlayer(playerId: Long, limit: Int): List<Match> {
+    fun getMatchesByPlayer(playerId: Long, limit: Int): List<MatchResponse> {
         return matchRepository.findAll()
             .filter { m ->
                 m.team1.offense.playerId == playerId || m.team1.defense.playerId == playerId ||
@@ -69,7 +69,7 @@ class MatchService(
             .map { toMatch(it) }
     }
 
-    fun getMatchesByTeamStats(player1Id: Long, player2Id: Long, limit: Int): List<Match> {
+    fun getMatchesByTeamStats(player1Id: Long, player2Id: Long, limit: Int): List<MatchResponse> {
         return matchRepository.findAll()
             .filter { m ->
                 val t1ids = setOf(m.team1.offense.playerId, m.team1.defense.playerId)
@@ -82,13 +82,13 @@ class MatchService(
             .map { toMatch(it) }
     }
 
-    fun getMatch(id: Long): Match {
+    fun getMatch(id: Long): MatchResponse {
         val match = matchRepository.findById(id)
             .orElseThrow { NoSuchElementException("Match not found: $id") }
         return toMatch(match)
     }
 
-    private fun toMatch(match: MatchEntity): Match {
+    private fun toMatch(match: Match): MatchResponse {
         val team1PlayerIds = listOf(match.team1.offense.playerId!!, match.team1.defense.playerId!!).sorted()
         val team2PlayerIds = listOf(match.team2.offense.playerId!!, match.team2.defense.playerId!!).sorted()
 
@@ -138,7 +138,7 @@ class MatchService(
             else -> Pair(null, null)
         }
 
-        return Match(
+        return MatchResponse(
             matchId = match.matchId ?: 0L,
             matchDate = match.matchDate.toString(),
             team1 = MatchTeam(
@@ -165,7 +165,7 @@ class MatchService(
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    fun createMatch(request: MatchRequest, matchDate: LocalDate = LocalDate.now()): Match {
+    fun createMatch(request: MatchRequest, matchDate: LocalDate = LocalDate.now()): MatchResponse {
         // ── 1. Resolve Players → Teams ────────────────────────────────────────
         val team1 = resolveOrCreateTeam(request.team1)
         val team2 = resolveOrCreateTeam(request.team2)
@@ -173,7 +173,7 @@ class MatchService(
         if (request.team1GameScore < 0 || request.team2GameScore < 0) throw IllegalArgumentException("Scores cannot be negative")
 
         // ── 2. Save Match ─────────────────────────────────────────────────────
-        val saved = matchRepository.save(MatchEntity(
+        val saved = matchRepository.save(Match(
             matchDate = matchDate,
             team1 = team1, team2 = team2,
             team1GameScore = request.team1GameScore,
@@ -260,7 +260,7 @@ class MatchService(
             .orElseGet { teamRepository.save(Team(offense = offense, defense = defense, teamColor = teamRequest.teamColor)) }
     }
 
-    fun updateMatch(id: Long, matchDate: LocalDate? = null, team1GameScore: Int? = null, team2GameScore: Int? = null): Match {
+    fun updateMatch(id: Long, matchDate: LocalDate? = null, team1GameScore: Int? = null, team2GameScore: Int? = null): MatchResponse {
         var entity = matchRepository.findById(id).orElseThrow { NoSuchElementException("Match not found: $id") }
         if (matchDate != null) entity = entity.copy(matchDate = matchDate)
         if (team1GameScore != null) { if (team1GameScore < 0) throw IllegalArgumentException("Score cannot be negative"); entity = entity.copy(team1GameScore = team1GameScore) }
@@ -327,4 +327,3 @@ class MatchService(
         matchupRepository.save(matchup)
     }
 }
-

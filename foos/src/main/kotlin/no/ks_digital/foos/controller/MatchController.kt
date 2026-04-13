@@ -1,6 +1,6 @@
 package no.ks_digital.foos.controller
 
-import no.ks_digital.foos.dto.Match
+import no.ks_digital.foos.dto.MatchResponse
 import no.ks_digital.foos.dto.MatchRequest
 import no.ks_digital.foos.service.MatchService
 import org.springframework.http.HttpStatus
@@ -16,17 +16,17 @@ class MatchController(private val matchService: MatchService) {
     @GetMapping
     fun getAllMatches(
         @RequestParam(defaultValue = "10") limit: Int
-    ): ResponseEntity<List<Match>> =
+    ): ResponseEntity<List<MatchResponse>> =
         ResponseEntity.ok(matchService.getRecentMatchResults(limit))
 
     @GetMapping("/recent")
     fun getRecentMatches(
         @RequestParam(defaultValue = "10") limit: Int
-    ): ResponseEntity<List<Match>> =
+    ): ResponseEntity<List<MatchResponse>> =
         ResponseEntity.ok(matchService.getRecentMatchResults(limit))
 
     @PostMapping
-    fun createMatch(@RequestBody request: MatchRequest): ResponseEntity<Match> {
+    fun createMatch(@RequestBody request: MatchRequest): ResponseEntity<MatchResponse> {
         return try {
             ResponseEntity.status(HttpStatus.CREATED).body(matchService.createMatch(request))
         } catch (e: IllegalArgumentException) {
@@ -40,7 +40,7 @@ class MatchController(private val matchService: MatchService) {
     fun getMatchesByPlayer(
         @PathVariable playerId: Long,
         @RequestParam(defaultValue = "20") limit: Int
-    ): ResponseEntity<List<Match>> =
+    ): ResponseEntity<List<MatchResponse>> =
         ResponseEntity.ok(matchService.getMatchesByPlayer(playerId, limit))
 
     @GetMapping("/team/{player1Id}/{player2Id}")
@@ -48,11 +48,11 @@ class MatchController(private val matchService: MatchService) {
         @PathVariable player1Id: Long,
         @PathVariable player2Id: Long,
         @RequestParam(defaultValue = "20") limit: Int
-    ): ResponseEntity<List<Match>> =
+    ): ResponseEntity<List<MatchResponse>> =
         ResponseEntity.ok(matchService.getMatchesByTeamStats(player1Id, player2Id, limit))
 
     @GetMapping("/{id}")
-    fun getMatch(@PathVariable id: Long): ResponseEntity<Match> {
+    fun getMatch(@PathVariable id: Long): ResponseEntity<MatchResponse> {
         return try {
             ResponseEntity.ok(matchService.getMatch(id))
         } catch (e: NoSuchElementException) {
@@ -64,7 +64,7 @@ class MatchController(private val matchService: MatchService) {
     fun updateMatch(
         @PathVariable id: Long,
         @RequestBody request: UpdateMatchRequest
-    ): ResponseEntity<Match> {
+    ): ResponseEntity<MatchResponse> {
         return try {
             ResponseEntity.ok(matchService.updateMatch(id, request.matchDate, request.team1GameScore, request.team2GameScore))
         } catch (e: NoSuchElementException) {

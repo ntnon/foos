@@ -5,7 +5,7 @@ import java.time.LocalDate
 
 @Entity
 @Table(name = "match")
-data class MatchEntity(
+data class Match(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val matchId: Long? = null,

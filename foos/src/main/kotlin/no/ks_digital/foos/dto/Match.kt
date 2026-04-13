@@ -27,7 +27,7 @@ data class MatchTeam(
 /**
  * Match - The rich response DTO for a foosball match.
  */
-data class Match(
+data class MatchResponse(
     val matchId: Long,
     val matchDate: String,
     val team1: MatchTeam,
@@ -35,4 +35,3 @@ data class Match(
     val winner: String?,
     val winnerColor: String?
 )
-
