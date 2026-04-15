@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FoosballApiService } from '../../services/foosball-api.service';
 import { TeamStats, Match } from '../../models/foosball.models';
-import { PieChartComponent } from '../../components/pie-chart.component';
-import { MatchListComponent } from '../../components/match-list.component';
-import { PlayerNameComponent } from '../../components/player-name.component';
-import { TeamSummaryCardComponent } from '../../components/team-summary-card.component';
+import { PieChartComponent } from '../../components/stats/pie-chart.component';
+import { MatchListComponent } from '../../components/match-display/match-list.component';
+import { PlayerNameComponent } from '../../components/player/player-name.component';
+import { TeamSummaryCardComponent } from '../../components/team/team-summary-card.component';
 
 @Component({
   selector: 'team-detail',

@@ -1,9 +1,9 @@
 import { Component, input, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { TeamCardComponent } from './team-card.component';
-import { FoosballApiService } from '../services/foosball-api.service';
-import { Match, MatchTeam } from '../models/foosball.models';
+import { TeamCardComponent } from '../team/team-card.component';
+import { FoosballApiService } from '../../services/foosball-api.service';
+import { Match, MatchTeam } from '../../models/foosball.models';
 
 @Component({
   selector: 'match',

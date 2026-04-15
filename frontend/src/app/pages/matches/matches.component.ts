@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataLoaderService } from '../../services/data-loader.service';
-import { MatchListComponent } from '../../components/match-list.component';
+import { MatchListComponent } from '../../components/match-display/match-list.component';
 import { SearchBarComponent } from '../../components/search-bar.component';
 import { Match } from '../../models/foosball.models';
 

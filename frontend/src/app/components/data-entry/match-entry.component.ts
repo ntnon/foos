@@ -1,13 +1,13 @@
 import {Component, signal, computed, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FoosballApiService } from '../../../services/foosball-api.service';
-import { DataLoaderService } from '../../../services/data-loader.service';
+import { FoosballApiService } from '../../services/foosball-api.service';
+import { DataLoaderService } from '../../services/data-loader.service';
 import {form, required} from '@angular/forms/signals';
 import {TeamComponent} from './team-entry.component';
 import { ScoreEntryComponent } from './score-entry.component';
 import { validate, submit } from '@angular/forms/signals';
-import { TeamColor } from '../../../models/foosball.models';
-import { SoccerFieldComponent } from '../../../components/soccer-field.component';
+import { TeamColor } from '../../models/foosball.models';
+import { SoccerFieldComponent } from '../../components/soccer-field.component';
 
 @Component({
   selector: 'match-entry',

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { DataLoaderService } from './services/data-loader.service';
+import { BackendStatusService } from './services/backend-status.service';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -14,6 +15,7 @@ import { RouterModule } from '@angular/router';
 })
 export class App implements OnInit {
   private dataLoaderService = inject(DataLoaderService);
+  backendStatus = inject(BackendStatusService);
 
   players = this.dataLoaderService.players;
   matches = this.dataLoaderService.matches;

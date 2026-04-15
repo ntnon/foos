@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
 import { FieldTree, FormField } from '@angular/forms/signals';
-import { FoosballApiService } from '../../../services/foosball-api.service';
+import { FoosballApiService } from '../../services/foosball-api.service';
 
 @Component({
   selector: 'select-player',

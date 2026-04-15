@@ -1,8 +1,8 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatchTeam } from '../models/foosball.models';
-import { EloComponent } from './elo.component';
-import { PlayerNameComponent } from './player-name.component';
+import { MatchTeam } from '../../models/foosball.models';
+import { EloComponent } from '../stats/elo.component';
+import { PlayerNameComponent } from '../player/player-name.component';
 
 @Component({
   selector: 'team-card',

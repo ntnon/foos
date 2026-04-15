@@ -1,8 +1,8 @@
 import { Component, inject, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FoosballApiService } from '../services/foosball-api.service';
-import { Player } from '../models/foosball.models';
+import { FoosballApiService } from '../../services/foosball-api.service';
+import { Player } from '../../models/foosball.models';
 
 @Component({
   selector: 'create-player-modal',

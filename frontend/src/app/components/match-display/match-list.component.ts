@@ -1,7 +1,7 @@
 import { Component, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatchComponent } from './match.component';
-import { Match } from '../models/foosball.models';
+import { MatchComponent } from './match-result.component';
+import { Match } from '../../models/foosball.models';
 
 @Component({
   selector: 'match-list',

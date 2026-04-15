@@ -1,5 +1,5 @@
 import { Component, input, computed, output } from '@angular/core';
-import { TeamColor } from '../../../models/foosball.models';
+import { TeamColor } from '../../models/foosball.models';
 import { FieldTree } from '@angular/forms/signals';
 
 @Component({

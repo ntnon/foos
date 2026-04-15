@@ -41,7 +41,12 @@
     </div>
   </header>
 
-  @if (error()) {
+  @if (backendStatus.isDown()) {
+    <div class="flex items-center gap-3 bg-red-600 text-white text-sm px-4 py-3 shadow-md">
+      <span class="text-lg">🔌</span>
+      <span class="flex-1 font-medium">Cannot connect to the backend server. Make sure it is running on port 8081.</span>
+    </div>
+  } @else if (error()) {
     <div class="flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 mx-4 mt-3 rounded-lg shadow-sm">
       <span class="text-lg">⚠️</span>
       <span class="flex-1">{{ error() }}</span>

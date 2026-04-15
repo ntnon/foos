@@ -23,6 +23,10 @@ export class DataLoaderService {
     return this.matches().filter(m => m.matchDate === today);
   });
 
+  recentMatches = computed(() => {
+    return this.matches().slice(0, 5);
+  });
+
   /**
    * Load all data (players, teams, recent matches with complete result data)
    * MatchResult objects from backend include:

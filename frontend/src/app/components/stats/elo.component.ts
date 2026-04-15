@@ -1,5 +1,5 @@
 import { input, Component } from '@angular/core';
-import { MatchPlayer } from '../models/foosball.models';
+import { MatchPlayer } from '../../models/foosball.models';
 import { CommonModule } from '@angular/common';
 
 @Component({

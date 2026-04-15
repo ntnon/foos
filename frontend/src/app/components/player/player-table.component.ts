@@ -2,7 +2,7 @@ import { Component, signal, inject, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FoosballApiService } from '../../services/foosball-api.service';
-import { SearchBarComponent } from '../../components/search-bar.component';
+import { SearchBarComponent } from '../search-bar.component';
 import { PlayerStats } from '../../models/foosball.models';
 
 type SortField = 'name' | 'elo' | 'winRate';

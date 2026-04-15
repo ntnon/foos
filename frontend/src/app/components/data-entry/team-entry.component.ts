@@ -1,7 +1,7 @@
 import {FormField, FieldTree} from '@angular/forms/signals';
 import {CommonModule} from '@angular/common';
 import { Component, input,  ChangeDetectionStrategy} from '@angular/core';
-import {TeamColor} from '../../../models/foosball.models';
+import {TeamColor} from '../../models/foosball.models';
 import {PlayerEntryComponent} from './player-entry.component';
 
 @Component({

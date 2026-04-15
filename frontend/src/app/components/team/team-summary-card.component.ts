@@ -1,8 +1,8 @@
 import { Component, input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { FoosballApiService } from '../services/foosball-api.service';
-import { PlayerNameComponent } from './player-name.component';
+import { FoosballApiService } from '../../services/foosball-api.service';
+import { PlayerNameComponent } from '../player/player-name.component';
 
 /**
  * A compact card for displaying a pair of players (team) with navigation to team stats.
