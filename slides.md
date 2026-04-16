@@ -6,16 +6,22 @@
 
 # Stack
 KS-relevante teknologier
-- Læringsmulighet!
 
 ## Backend
 - Kotlin
 - Springboot
-- (prod) postgres
+- (prod) Postgres
 - (dev) H2
 
 ## Frontend
 - Angular 21
 - tailwind
 
+---
 
+
+```
+~~~graph-easy --as=boxart
+[ A ] -> [ B ]
+~~~
+```

@@ -1,22 +1,18 @@
-import { Component, signal, inject, computed } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FoosballApiService } from '../../services/foosball-api.service';
-import { TeamStats, Match } from '../../models/foosball.models';
-import { PieChartComponent } from '../../components/stats/pie-chart.component';
-import { MatchListComponent } from '../../components/match-display/match-list.component';
-import { PlayerNameComponent } from '../../components/player/player-name.component';
-import { TeamSummaryCardComponent } from '../../components/team/team-summary-card.component';
+import { TeamStats, Match, MatchTeam } from '../../models/foosball.models';
+import { TeamSummaryCardComponent } from './team-summary-card.component';
+import { PlayerNameComponent } from '../player/player-name.component';
 
 @Component({
   selector: 'team-detail',
   standalone: true,
-  imports: [CommonModule, PieChartComponent, MatchListComponent, PlayerNameComponent, TeamSummaryCardComponent],
+  imports: [CommonModule, TeamSummaryCardComponent, PlayerNameComponent],
   template: `
-    <div class="px-6 py-8">
-      <div class="max-w-3xl mx-auto">
-        <button (click)="back()" class="mb-6 text-sm text-blue-500 hover:underline">← Back to Teams</button>
-      </div>
+    <div class="px-6 py-8 max-w-5xl mx-auto">
+      <button (click)="back()" class="mb-6 text-sm text-pitch-500 hover:underline">← Back to Teams</button>
 
       @if (loading()) {
         <div class="text-gray-500 text-center py-16">Loading...</div>
@@ -24,101 +20,143 @@ import { TeamSummaryCardComponent } from '../../components/team/team-summary-car
         <div class="text-red-500 text-center py-16">{{ error() }}</div>
       } @else if (stats()) {
 
-        <!-- Stats card — constrained width -->
-        <div class="max-w-3xl mx-auto mb-8">
-          <div class="bg-brand-50 border border-brand-200 rounded-2xl shadow p-8">
+        <!-- Title -->
+        <h2 class="text-3xl font-black text-gray-900 mb-1 flex items-center gap-2">
+          <player-name [playerId]="stats()!.player1Id" [name]="stats()!.player1Name" [pill]="false" />
+          <span class="text-pitch-300 font-normal">&amp;</span>
+          <player-name [playerId]="stats()!.player2Id" [name]="stats()!.player2Name" [pill]="false" />
+        </h2>
 
-            <!-- Header -->
-            <h2 class="text-3xl font-black text-gray-900 mb-1 flex flex-wrap items-center gap-2">
-              <player-name [playerId]="stats()!.player1Id" [name]="stats()!.player1Name" [pill]="false" extraClass="hover:text-brand-700 transition-colors" />
-              <span class="text-gray-400 font-normal">&amp;</span>
-              <player-name [playerId]="stats()!.player2Id" [name]="stats()!.player2Name" [pill]="false" extraClass="hover:text-brand-700 transition-colors" />
-            </h2>
-            <p class="text-gray-400 text-sm mb-6">{{ stats()!.totalMatches }} matches played</p>
+        <!-- Stats table -->
+        <div class="overflow-x-auto rounded-xl shadow mb-10">
+          <table class="w-full text-sm text-left bg-white">
+            <thead class="bg-pitch-100 text-pitch-500 uppercase text-xs">
+              <tr>
+                <th class="px-4 py-3">Stat</th>
+                <th class="px-4 py-3">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Highlighted: most interesting stats -->
+              <tr class="border-t border-gray-100 bg-pitch-50">
+                <td class="px-4 py-3 font-semibold text-pitch-600">ELO Rating</td>
+                <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">{{ stats()!.eloRating | number:'1.0-0' }}</td>
+              </tr>
+              <tr class="border-t border-gray-100 bg-pitch-50">
+                <td class="px-4 py-3 font-semibold text-pitch-600">Win Rate</td>
+                <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">{{ (stats()!.winRate * 100) | number:'1.0-1' }}%</td>
+              </tr>
+              <tr class="border-t border-gray-100 bg-pitch-50">
+                <td class="px-4 py-3 font-semibold text-pitch-600">Record</td>
+                <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">{{ stats()!.wins }}W – {{ stats()!.losses }}L</td>
+              </tr>
+              <tr class="border-t border-gray-100 bg-pitch-50">
+                <td class="px-4 py-3 font-semibold text-pitch-600">Current Streak</td>
+                <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">
+                  {{ stats()!.currentWinStreak }}
+                  @if (stats()!.hotStreak) { <span class="ml-1">🔥</span> }
+                </td>
+              </tr>
 
-            <!-- Key stats grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-
-              <!-- ELO -->
-              <div class="relative overflow-hidden bg-linear-to-br from-brand-50 to-brand-100 border border-brand-200 rounded-md p-4 flex flex-col items-center justify-center text-center shadow-sm">
-                <div class="text-3xl mb-1">🏆</div>
-                <div class="text-2xl font-black font-mono text-brand-700">{{ stats()!.eloRating | number:'1.0-0' }}</div>
-                <div class="text-xs font-semibold text-brand-400 uppercase tracking-wide mt-1">ELO Rating</div>
-              </div>
-
-              <!-- Win Rate -->
-              <div class="relative overflow-hidden bg-linear-to-br from-field-50 to-field-100 border border-field-200 rounded-md p-4 flex flex-col items-center justify-center text-center shadow-sm">
-                <div class="text-3xl mb-1">📈</div>
-                <div class="text-2xl font-black font-mono text-field-700">{{ (stats()!.winRate * 100) | number:'1.0-0' }}<span class="text-base font-bold">%</span></div>
-                <div class="text-xs font-semibold text-field-600 uppercase tracking-wide mt-1">Win Rate</div>
-                <div class="text-xs text-field-500 mt-0.5">{{ stats()!.wins }}W – {{ stats()!.losses }}L</div>
-              </div>
-
-              <!-- Current streak -->
-              <div class="relative overflow-hidden bg-linear-to-br from-amber-50 to-amber-100 border border-amber-300 rounded-md p-4 flex flex-col items-center justify-center text-center shadow-sm">
-                <div class="text-3xl mb-1">@if (stats()!.hotStreak) { 🔥 } @else { ⚡ }</div>
-                <div class="text-2xl font-black font-mono text-amber-700">{{ stats()!.currentWinStreak }}</div>
-                <div class="text-xs font-semibold text-amber-700 uppercase tracking-wide mt-1">Current Streak</div>
-              </div>
-
-              <!-- Best streak -->
-              <div class="relative overflow-hidden bg-linear-to-br from-team-red-50 to-team-red-100 border border-team-red-200 rounded-md p-4 flex flex-col items-center justify-center text-center shadow-sm">
-                <div class="text-3xl mb-1">🎯</div>
-                <div class="text-2xl font-black font-mono text-team-red-700">{{ stats()!.longestWinStreak }}</div>
-                <div class="text-xs font-semibold text-team-red-600 uppercase tracking-wide mt-1">Best Streak</div>
-              </div>
-            </div>
-
-
-            <!-- Scoring -->
-
-
-            <!-- Charts: W/L, Color & Position -->
-            <div class="grid grid-cols-3 gap-6 mb-8 items-stretch">
-              <div class="flex flex-col gap-4 ">
-                <div class="bg-gray-50 rounded-xl p-4 flex-1 flex flex-col justify-center shadow-sm">
-                  <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Avg scored / match</div>
-                  <div class="text-2xl font-black font-mono text-gray-700">{{ stats()!.avgPointsScoredPerMatch | number:'1.1-1' }}</div>
-                </div>
-                <div class="bg-gray-50 rounded-xl p-4 flex-1 flex flex-col justify-center shadow-sm">
-                  <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Avg allowed / match</div>
-                  <div class="text-2xl font-black font-mono text-gray-700">{{ stats()!.avgPointsAllowedPerMatch | number:'1.1-1' }}</div>
-                </div>
-              </div>
-              <div class="flex flex-col items-center">
-                <pie-chart title="Wins / Losses" [data]="wlChartData()" [size]="130" />
-              </div>
-              <div class="flex flex-col items-center">
-                <pie-chart title="Color" [data]="colorChartData()" [size]="130" />
-              </div>
-            </div>
-
-            <!-- Toughest rivals -->
-            @if (stats()!.rivalTeams.length) {
-              <div>
-                <h3 class="text-lg font-bold text-gray-800 mb-3">Toughest rivals</h3>
-                <div class="flex flex-row justify-evenly flex-wrap gap-3">
-                  @for (r of stats()!.rivalTeams; track r.rivalTeamStatsId) {
+              <!-- Secondary stats -->
+              @if (stats()!.rivalTeams.length) {
+                <tr class="border-t border-gray-100">
+                  <td class="px-4 py-3 text-pitch-500">Rival</td>
+                  <td class="px-4 py-3 font-mono font-bold text-pitch-900">
                     <team-summary-card
-                      [player1Id]="r.rival1Id"
-                      [player1Name]="r.rival1Name"
-                      [player2Id]="r.rival2Id"
-                      [player2Name]="r.rival2Name"
-                      [label]="r.matchesAgainst + ' matches · ' + ((r.lossRate * 100) | number:'1.0-1') + '% loss'"
+                      [player1Id]="stats()!.rivalTeams[0].rival1Id"
+                      [player1Name]="stats()!.rivalTeams[0].rival1Name"
+                      [player2Id]="stats()!.rivalTeams[0].rival2Id"
+                      [player2Name]="stats()!.rivalTeams[0].rival2Name"
                     />
-                  }
-                </div>
-              </div>
-            }
-
-          </div>
+                  </td>
+                </tr>
+              }
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">Best Streak</td>
+                <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.longestWinStreak }}</td>
+              </tr>
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">Best Color</td>
+                <td class="px-4 py-3 font-mono font-bold text-pitch-900">
+                  {{ stats()!.colorWinRateRed >= stats()!.colorWinRateBlue ? '🔴 Red' : '🔵 Blue' }}
+                  <span class="text-pitch-400 font-normal ml-1">
+                    ({{ ((stats()!.colorWinRateRed >= stats()!.colorWinRateBlue ? stats()!.colorWinRateRed : stats()!.colorWinRateBlue) * 100) | number:'1.0-1' }}% win rate)
+                  </span>
+                </td>
+              </tr>
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">Avg Score Diff</td>
+                <td class="px-4 py-3 font-mono font-bold"
+                    [class]="stats()!.averageScoreDifference >= 0 ? 'text-field-600' : 'text-team-red-500'">
+                  {{ stats()!.averageScoreDifference >= 0 ? '+' : '' }}{{ stats()!.averageScoreDifference | number:'1.1-1' }}
+                </td>
+              </tr>
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">Avg Scored / Match</td>
+                <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.avgPointsScoredPerMatch | number:'1.1-1' }}</td>
+              </tr>
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">Avg Allowed / Match</td>
+                <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.avgPointsAllowedPerMatch | number:'1.1-1' }}</td>
+              </tr>
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">Last Played</td>
+                <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ formatDate(stats()!.lastPlayed) }}</td>
+              </tr>
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">Avg Matches / Week</td>
+                <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.avgMatchesPerWeek | number:'1.1-1' }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
-        <!-- Match history — full width -->
-        <div class="mt-6 px-2">
-          <h3 class="text-lg font-bold text-gray-800 mb-3 max-w-3xl mx-auto">Match History</h3>
-          <match-list [matches]="matches()" [perspectiveTeamPlayerIds]="[stats()!.player1Id, stats()!.player2Id]" />
+        <!-- Match history -->
+        <h3 class="text-lg font-bold text-pitch-900 mb-3">Match History</h3>
+        <div class="overflow-x-auto rounded-xl shadow">
+          <table class="w-full text-sm text-left bg-white">
+            <thead class="bg-pitch-100 text-pitch-500 uppercase text-xs">
+              <tr>
+                <th class="px-4 py-3">Date</th>
+                <th class="px-4 py-3">Result</th>
+                <th class="px-4 py-3 text-center">Score</th>
+                <th class="px-4 py-3 text-center">All Time</th>
+                <th class="px-4 py-3">Opponent</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (match of matches(); track match.matchId) {
+                @let sides = perspective(match);
+                @let us = sides[0];
+                @let them = sides[1];
+                @let won = us.gameScore > them.gameScore;
+                <tr class="border-t border-gray-100 hover:bg-team-blue-50 transition-colors">
+                  <td class="px-4 py-3 text-pitch-400 whitespace-nowrap">{{ formatDate(match.matchDate) }}</td>
+                  <td class="px-4 py-3 font-bold" [class]="won ? 'text-field-600' : 'text-team-red-500'">
+                    {{ won ? 'Win' : 'Loss' }}
+                  </td>
+                  <td class="px-4 py-3 text-center font-black whitespace-nowrap">
+                    <span [class]="won ? 'text-pitch-900' : 'text-pitch-400'">{{ us.gameScore }}</span>
+                    <span class="text-pitch-200 mx-1">–</span>
+                    <span [class]="!won ? 'text-pitch-900' : 'text-pitch-400'">{{ them.gameScore }}</span>
+                  </td>
+                  <td class="px-4 py-3 text-center font-mono text-pitch-500 whitespace-nowrap">
+                    {{ us.pairWins }} – {{ them.pairWins }}
+                  </td>
+                  <td class="px-4 py-3 cursor-pointer hover:underline font-medium text-pitch-900"
+                      (click)="goToTeam(them)">
+                    {{ them.offense.playerName }} &amp; {{ them.defense.playerName }}
+                  </td>
+                </tr>
+              }
+              @empty {
+                <tr><td colspan="5" class="text-center py-10 text-pitch-300">No matches yet</td></tr>
+              }
+            </tbody>
+          </table>
         </div>
+
       }
     </div>
   `,
@@ -132,25 +170,6 @@ export class TeamComponent {
   matches = signal<Match[]>([]);
   loading = signal(true);
   error = signal<string | null>(null);
-
-  wlChartData = computed(() => {
-    const s = this.stats();
-    if (!s) return [];
-    return [
-      { label: 'Wins', value: s.wins, color: '#22c55e' },
-      { label: 'Losses', value: s.losses, color: '#ef4444' },
-    ];
-  });
-
-  colorChartData = computed(() => {
-    const s = this.stats();
-    if (!s) return [];
-    return [
-      { label: 'Red', value: s.matchesAsRed, color: '#ef4444' },
-      { label: 'Blue', value: s.matchesAsBlue, color: '#3b82f6' },
-    ];
-  });
-
 
   constructor() {
     this.route.paramMap.subscribe(params => {
@@ -166,14 +185,36 @@ export class TeamComponent {
             this.loading.set(false);
             this.api.getMatchesByTeam(s.player1Id, s.player2Id).subscribe({
               next: (ms) => this.matches.set(ms),
-              error: () => {}
+              error: () => {},
             });
           },
-          error: () => { this.error.set('Team not found'); this.loading.set(false); }
+          error: () => { this.error.set('Team not found'); this.loading.set(false); },
         });
       } else {
         this.router.navigate(['/stats/teams']);
       }
+    });
+  }
+
+  /** Returns [ourTeam, opponentTeam] from the perspective of the current team */
+  perspective(match: Match): [MatchTeam, MatchTeam] {
+    const s = this.stats()!;
+    const ourIds = [s.player1Id, s.player2Id];
+    const t1Ids = [match.team1.offense.playerId, match.team1.defense.playerId];
+    const isTeam1 = ourIds.every(id => t1Ids.includes(id));
+    return isTeam1 ? [match.team1, match.team2] : [match.team2, match.team1];
+  }
+
+  goToTeam(team: MatchTeam) {
+    this.api.getTeamStats(team.offense.playerId, team.defense.playerId).subscribe({
+      next: (s) => this.router.navigate(['/stats/teams', s.teamStatsId]),
+      error: () => {},
+    });
+  }
+
+  formatDate(dateStr: string): string {
+    return new Date(dateStr).toLocaleDateString('en-US', {
+      month: 'short', day: 'numeric', year: 'numeric',
     });
   }
 
