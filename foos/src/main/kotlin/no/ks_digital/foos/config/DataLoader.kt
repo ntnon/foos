@@ -47,7 +47,9 @@ class DataLoader(
             "Nora", "Aki", "Anton", "Sondre FS", "Kolbein",
             "Håkon", "Andreas", "Stian", "Jakob", "Carl-Trygve",
             "Roar", "Såndræ F", "Ragnar", "Eivind", "Stian M",
-            "Erlend", "Andreas MB", "Daniel"
+            "Erlend", "Andreas MB", "Daniel", "Lars Mikal",
+            "Martin", "Marie", "Son3", "Helge", "Lotte",
+            "Hege", "Jarle", "Herrevold", "Øystein", "Dan-Eric"
         ).map { Player(name = it) }
 
         playerRepository.saveAll(players)
@@ -139,6 +141,167 @@ class DataLoader(
 
             // Mandag 23.feb
             Pair(LocalDate.of(2026, 2, 23), Triple(getOrCreateTeam("Aki", "Sondre FS", TeamColor.RED), getOrCreateTeam("Anton", "Roar", TeamColor.BLUE), Pair(10, 8))),
+
+            // Tirsdag 24.feb
+            Pair(LocalDate.of(2026, 2, 24), Triple(getOrCreateTeam("Aki", "Sondre FS", TeamColor.BLUE), getOrCreateTeam("Nora", "Andreas", TeamColor.RED), Pair(10, 7))),
+            Pair(LocalDate.of(2026, 2, 24), Triple(getOrCreateTeam("Sondre FS", "Såndræ F", TeamColor.BLUE), getOrCreateTeam("Håkon", "Anton", TeamColor.RED), Pair(10, 1))),
+            Pair(LocalDate.of(2026, 2, 24), Triple(getOrCreateTeam("Daniel", "Andreas MB", TeamColor.RED), getOrCreateTeam("Såndræ F", "Roar", TeamColor.BLUE), Pair(10, 7))),
+
+            // Onsdag 25.feb
+            Pair(LocalDate.of(2026, 2, 25), Triple(getOrCreateTeam("Daniel", "Lars Mikal", TeamColor.BLUE), getOrCreateTeam("Sondre FS", "Roar", TeamColor.RED), Pair(10, 2))),
+            Pair(LocalDate.of(2026, 2, 25), Triple(getOrCreateTeam("Kolbein", "Håkon", TeamColor.BLUE), getOrCreateTeam("Andreas", "Anton", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 2, 25), Triple(getOrCreateTeam("Aki", "Såndræ F", TeamColor.RED), getOrCreateTeam("Kolbein", "Anton", TeamColor.BLUE), Pair(10, 6))),
+
+            // Torsdag 26.feb
+            Pair(LocalDate.of(2026, 2, 26), Triple(getOrCreateTeam("Kolbein", "Carl-Trygve", TeamColor.RED), getOrCreateTeam("Sondre FS", "Anton", TeamColor.BLUE), Pair(10, 5))),
+            Pair(LocalDate.of(2026, 2, 26), Triple(getOrCreateTeam("Kolbein", "Erlend", TeamColor.RED), getOrCreateTeam("Aki", "Nora", TeamColor.BLUE), Pair(10, 7))),
+            Pair(LocalDate.of(2026, 2, 26), Triple(getOrCreateTeam("Daniel", "Såndræ F", TeamColor.RED), getOrCreateTeam("Aki", "Nora", TeamColor.BLUE), Pair(10, 4))),
+            Pair(LocalDate.of(2026, 2, 26), Triple(getOrCreateTeam("Stian M", "Erlend", TeamColor.RED), getOrCreateTeam("Anton", "Jakob", TeamColor.BLUE), Pair(10, 5))),
+            Pair(LocalDate.of(2026, 2, 26), Triple(getOrCreateTeam("Kolbein", "Andreas", TeamColor.RED), getOrCreateTeam("Aki", "Martin", TeamColor.BLUE), Pair(10, 6))),
+
+            // Fredag 27.feb
+            Pair(LocalDate.of(2026, 2, 27), Triple(getOrCreateTeam("Daniel", "Roar", TeamColor.BLUE), getOrCreateTeam("Sondre FS", "Erlend", TeamColor.RED), Pair(10, 6))),
+            Pair(LocalDate.of(2026, 2, 27), Triple(getOrCreateTeam("Aki", "Anton", TeamColor.RED), getOrCreateTeam("Nora", "Eivind", TeamColor.BLUE), Pair(10, 5))),
+            Pair(LocalDate.of(2026, 2, 27), Triple(getOrCreateTeam("Aki", "Stian", TeamColor.RED), getOrCreateTeam("Nora", "Eivind", TeamColor.BLUE), Pair(10, 5))),
+            Pair(LocalDate.of(2026, 2, 27), Triple(getOrCreateTeam("Daniel", "Jarle", TeamColor.BLUE), getOrCreateTeam("Nora", "Roar", TeamColor.RED), Pair(10, 3))),
+            Pair(LocalDate.of(2026, 2, 27), Triple(getOrCreateTeam("Daniel", "Jarle", TeamColor.BLUE), getOrCreateTeam("Aki", "Eivind", TeamColor.RED), Pair(10, 7))),
+
+            // Mandag 02.mar
+            Pair(LocalDate.of(2026, 3, 2), Triple(getOrCreateTeam("Carl-Trygve", "Marie", TeamColor.RED), getOrCreateTeam("Sondre FS", "Roar", TeamColor.BLUE), Pair(10, 9))),
+            Pair(LocalDate.of(2026, 3, 2), Triple(getOrCreateTeam("Aki", "Andreas", TeamColor.BLUE), getOrCreateTeam("Sondre FS", "Roar", TeamColor.RED), Pair(10, 9))),
+
+            // Tirsdag 03.mar
+            Pair(LocalDate.of(2026, 3, 3), Triple(getOrCreateTeam("Daniel", "Såndræ F", TeamColor.BLUE), getOrCreateTeam("Anton", "Roar", TeamColor.RED), Pair(10, 3))),
+            Pair(LocalDate.of(2026, 3, 3), Triple(getOrCreateTeam("Stian", "Erlend", TeamColor.RED), getOrCreateTeam("Anton", "Nora", TeamColor.BLUE), Pair(10, 9))),
+            Pair(LocalDate.of(2026, 3, 3), Triple(getOrCreateTeam("Kolbein", "Carl-Trygve", TeamColor.BLUE), getOrCreateTeam("Såndræ F", "Eivind", TeamColor.RED), Pair(10, 7))),
+            Pair(LocalDate.of(2026, 3, 3), Triple(getOrCreateTeam("Aki", "Stian", TeamColor.RED), getOrCreateTeam("Andreas", "Håkon", TeamColor.BLUE), Pair(10, 4))),
+
+            // Onsdag 04.mar
+            Pair(LocalDate.of(2026, 3, 4), Triple(getOrCreateTeam("Nora", "Roar", TeamColor.BLUE), getOrCreateTeam("Ragnar", "Sondre FS", TeamColor.RED), Pair(10, 9))),
+            Pair(LocalDate.of(2026, 3, 4), Triple(getOrCreateTeam("Aki", "Såndræ F", TeamColor.BLUE), getOrCreateTeam("Kolbein", "Anton", TeamColor.RED), Pair(10, 6))),
+            Pair(LocalDate.of(2026, 3, 4), Triple(getOrCreateTeam("Daniel", "Kolbein", TeamColor.RED), getOrCreateTeam("Sondre FS", "Carl-Trygve", TeamColor.BLUE), Pair(10, 3))),
+            Pair(LocalDate.of(2026, 3, 4), Triple(getOrCreateTeam("Daniel", "Aki", TeamColor.BLUE), getOrCreateTeam("Kolbein", "Sondre FS", TeamColor.RED), Pair(10, 4))),
+            Pair(LocalDate.of(2026, 3, 4), Triple(getOrCreateTeam("Håkon", "Stian", TeamColor.BLUE), getOrCreateTeam("Andreas", "Nora", TeamColor.RED), Pair(10, 4))),
+
+            // Torsdag 05.mar
+            Pair(LocalDate.of(2026, 3, 5), Triple(getOrCreateTeam("Daniel", "Herrevold", TeamColor.RED), getOrCreateTeam("Aki", "Håkon", TeamColor.BLUE), Pair(10, 6))),
+            Pair(LocalDate.of(2026, 3, 5), Triple(getOrCreateTeam("Aki", "Sondre FS", TeamColor.BLUE), getOrCreateTeam("Anton", "Erlend", TeamColor.RED), Pair(10, 3))),
+
+            // Fredag 06.mar
+            Pair(LocalDate.of(2026, 3, 6), Triple(getOrCreateTeam("Sondre FS", "Roar", TeamColor.RED), getOrCreateTeam("Anton", "Ragnar", TeamColor.BLUE), Pair(10, 3))),
+            Pair(LocalDate.of(2026, 3, 6), Triple(getOrCreateTeam("Daniel", "Erlend", TeamColor.RED), getOrCreateTeam("Aki", "Såndræ F", TeamColor.BLUE), Pair(10, 5))),
+            Pair(LocalDate.of(2026, 3, 6), Triple(getOrCreateTeam("Daniel", "Sondre FS", TeamColor.RED), getOrCreateTeam("Aki", "Anton", TeamColor.BLUE), Pair(10, 4))),
+
+            // Mandag 09.mar
+            Pair(LocalDate.of(2026, 3, 9), Triple(getOrCreateTeam("Aki", "Såndræ F", TeamColor.BLUE), getOrCreateTeam("Nora", "Son3", TeamColor.RED), Pair(10, 3))),
+            Pair(LocalDate.of(2026, 3, 9), Triple(getOrCreateTeam("Sondre FS", "Anton", TeamColor.BLUE), getOrCreateTeam("Aki", "Roar", TeamColor.RED), Pair(10, 6))),
+
+            // Tirsdag 10.mar
+            Pair(LocalDate.of(2026, 3, 10), Triple(getOrCreateTeam("Aki", "Kolbein", TeamColor.RED), getOrCreateTeam("Eivind", "Roar", TeamColor.BLUE), Pair(10, 1))),
+            Pair(LocalDate.of(2026, 3, 10), Triple(getOrCreateTeam("Anton", "Carl-Trygve", TeamColor.RED), getOrCreateTeam("Daniel", "Erlend", TeamColor.BLUE), Pair(10, 9))),
+            Pair(LocalDate.of(2026, 3, 10), Triple(getOrCreateTeam("Aki", "Nora", TeamColor.BLUE), getOrCreateTeam("Andreas", "Eivind", TeamColor.RED), Pair(10, 5))),
+
+            // Onsdag 11.mar
+            Pair(LocalDate.of(2026, 3, 11), Triple(getOrCreateTeam("Kolbein", "Helge", TeamColor.BLUE), getOrCreateTeam("Andreas", "Håkon", TeamColor.RED), Pair(10, 2))),
+
+            // Mandag 16.mar
+            Pair(LocalDate.of(2026, 3, 16), Triple(getOrCreateTeam("Aki", "Andreas", TeamColor.BLUE), getOrCreateTeam("Sondre FS", "Helge", TeamColor.RED), Pair(10, 9))),
+
+            // Tirsdag 17.mar
+            Pair(LocalDate.of(2026, 3, 17), Triple(getOrCreateTeam("Stian", "Eivind", TeamColor.RED), getOrCreateTeam("Kolbein", "Aki", TeamColor.BLUE), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 3, 17), Triple(getOrCreateTeam("Aki", "Martin", TeamColor.BLUE), getOrCreateTeam("Sondre FS", "Carl-Trygve", TeamColor.RED), Pair(10, 6))),
+
+            // Onsdag 18.mar
+            Pair(LocalDate.of(2026, 3, 18), Triple(getOrCreateTeam("Såndræ F", "Stian", TeamColor.BLUE), getOrCreateTeam("Kolbein", "Håkon", TeamColor.RED), Pair(10, 9))),
+            Pair(LocalDate.of(2026, 3, 18), Triple(getOrCreateTeam("Aki", "Eivind", TeamColor.BLUE), getOrCreateTeam("Stian", "Nora", TeamColor.RED), Pair(10, 5))),
+
+            // Torsdag 19.mar
+            Pair(LocalDate.of(2026, 3, 19), Triple(getOrCreateTeam("Kolbein", "Håkon", TeamColor.RED), getOrCreateTeam("Nora", "Andreas", TeamColor.BLUE), Pair(10, 7))),
+            Pair(LocalDate.of(2026, 3, 19), Triple(getOrCreateTeam("Nora", "Sondre FS", TeamColor.BLUE), getOrCreateTeam("Erlend", "Stian", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 3, 19), Triple(getOrCreateTeam("Kolbein", "Andreas", TeamColor.RED), getOrCreateTeam("Aki", "Håkon", TeamColor.BLUE), Pair(10, 6))),
+
+            // Fredag 20.mar
+            Pair(LocalDate.of(2026, 3, 20), Triple(getOrCreateTeam("Nora", "Andreas", TeamColor.BLUE), getOrCreateTeam("Aki", "Roar", TeamColor.RED), Pair(10, 9))),
+
+            // Mandag 23.mar
+            Pair(LocalDate.of(2026, 3, 23), Triple(getOrCreateTeam("Aki", "Eivind", TeamColor.RED), getOrCreateTeam("Anton", "Roar", TeamColor.BLUE), Pair(10, 9))),
+            Pair(LocalDate.of(2026, 3, 23), Triple(getOrCreateTeam("Anton", "Helge", TeamColor.BLUE), getOrCreateTeam("Aki", "Roar", TeamColor.RED), Pair(10, 7))),
+
+            // Tirsdag 24.mar
+            Pair(LocalDate.of(2026, 3, 24), Triple(getOrCreateTeam("Såndræ F", "Stian", TeamColor.RED), getOrCreateTeam("Anton", "Håkon", TeamColor.BLUE), Pair(10, 4))),
+            Pair(LocalDate.of(2026, 3, 24), Triple(getOrCreateTeam("Såndræ F", "Anton", TeamColor.RED), getOrCreateTeam("Aki", "Erlend", TeamColor.BLUE), Pair(10, 2))),
+
+            // Onsdag 25.mar
+            Pair(LocalDate.of(2026, 3, 25), Triple(getOrCreateTeam("Nora", "Anton", TeamColor.RED), getOrCreateTeam("Sondre FS", "Roar", TeamColor.BLUE), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 3, 25), Triple(getOrCreateTeam("Anton", "Stian", TeamColor.BLUE), getOrCreateTeam("Aki", "Nora", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 3, 25), Triple(getOrCreateTeam("Aki", "Håkon", TeamColor.BLUE), getOrCreateTeam("Nora", "Eivind", TeamColor.RED), Pair(10, 6))),
+
+            // Torsdag 26.mar
+            Pair(LocalDate.of(2026, 3, 26), Triple(getOrCreateTeam("Nora", "Eivind", TeamColor.RED), getOrCreateTeam("Aki", "Anton", TeamColor.BLUE), Pair(10, 7))),
+            Pair(LocalDate.of(2026, 3, 26), Triple(getOrCreateTeam("Aki", "Sondre FS", TeamColor.RED), getOrCreateTeam("Anton", "Roar", TeamColor.BLUE), Pair(10, 7))),
+
+            // Fredag 27.mar
+            Pair(LocalDate.of(2026, 3, 27), Triple(getOrCreateTeam("Anton", "Sondre FS", TeamColor.BLUE), getOrCreateTeam("Aki", "Nora", TeamColor.RED), Pair(10, 6))),
+            Pair(LocalDate.of(2026, 3, 27), Triple(getOrCreateTeam("Nora", "Øystein", TeamColor.BLUE), getOrCreateTeam("Aki", "Erlend", TeamColor.RED), Pair(10, 6))),
+
+            // Tirsdag 31.mar
+            Pair(LocalDate.of(2026, 3, 31), Triple(getOrCreateTeam("Kolbein", "Håkon", TeamColor.RED), getOrCreateTeam("Aki", "Andreas", TeamColor.BLUE), Pair(10, 9))),
+            Pair(LocalDate.of(2026, 3, 31), Triple(getOrCreateTeam("Kolbein", "Håkon", TeamColor.RED), getOrCreateTeam("Såndræ F", "Andreas", TeamColor.BLUE), Pair(10, 4))),
+            Pair(LocalDate.of(2026, 3, 31), Triple(getOrCreateTeam("Daniel", "Håkon", TeamColor.RED), getOrCreateTeam("Sondre FS", "Andreas", TeamColor.BLUE), Pair(10, 2))),
+            Pair(LocalDate.of(2026, 3, 31), Triple(getOrCreateTeam("Kolbein", "Aki", TeamColor.RED), getOrCreateTeam("Sondre FS", "Håkon", TeamColor.BLUE), Pair(10, 3))),
+
+            // Tirsdag 07.apr
+            Pair(LocalDate.of(2026, 4, 7), Triple(getOrCreateTeam("Kolbein", "Roar", TeamColor.RED), getOrCreateTeam("Såndræ F", "Håkon", TeamColor.BLUE), Pair(10, 9))),
+            Pair(LocalDate.of(2026, 4, 7), Triple(getOrCreateTeam("Aki", "Håkon", TeamColor.RED), getOrCreateTeam("Roar", "Carl-Trygve", TeamColor.BLUE), Pair(10, 6))),
+
+            // Onsdag 08.apr
+            Pair(LocalDate.of(2026, 4, 8), Triple(getOrCreateTeam("Sondre FS", "Roar", TeamColor.BLUE), getOrCreateTeam("Kolbein", "Håkon", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 4, 8), Triple(getOrCreateTeam("Aki", "Roar", TeamColor.RED), getOrCreateTeam("Kolbein", "Nora", TeamColor.BLUE), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 4, 8), Triple(getOrCreateTeam("Aki", "Stian", TeamColor.RED), getOrCreateTeam("Håkon", "Sondre FS", TeamColor.BLUE), Pair(10, 5))),
+
+            // Torsdag 09.apr
+            Pair(LocalDate.of(2026, 4, 9), Triple(getOrCreateTeam("Daniel", "Nora", TeamColor.BLUE), getOrCreateTeam("Aki", "Eivind", TeamColor.RED), Pair(10, 1))),
+            Pair(LocalDate.of(2026, 4, 9), Triple(getOrCreateTeam("Aki", "Kolbein", TeamColor.RED), getOrCreateTeam("Håkon", "Sondre FS", TeamColor.BLUE), Pair(10, 5))),
+            Pair(LocalDate.of(2026, 4, 9), Triple(getOrCreateTeam("Daniel", "Sondre FS", TeamColor.RED), getOrCreateTeam("Aki", "Kolbein", TeamColor.BLUE), Pair(10, 8))),
+
+            // Fredag 10.apr
+            Pair(LocalDate.of(2026, 4, 10), Triple(getOrCreateTeam("Kolbein", "Roar", TeamColor.RED), getOrCreateTeam("Stian", "Lotte", TeamColor.BLUE), Pair(10, 4))),
+            Pair(LocalDate.of(2026, 4, 10), Triple(getOrCreateTeam("Kolbein", "Erlend", TeamColor.RED), getOrCreateTeam("Aki", "Sondre FS", TeamColor.BLUE), Pair(10, 7))),
+            Pair(LocalDate.of(2026, 4, 10), Triple(getOrCreateTeam("Kolbein", "Aki", TeamColor.BLUE), getOrCreateTeam("Daniel", "Roar", TeamColor.RED), Pair(10, 7))),
+
+            // Mandag 13.apr
+            Pair(LocalDate.of(2026, 4, 13), Triple(getOrCreateTeam("Eivind", "Hege", TeamColor.BLUE), getOrCreateTeam("Aki", "Roar", TeamColor.RED), Pair(10, 9))),
+            Pair(LocalDate.of(2026, 4, 13), Triple(getOrCreateTeam("Eivind", "Aki", TeamColor.RED), getOrCreateTeam("Sondre FS", "Roar", TeamColor.BLUE), Pair(10, 7))),
+
+            // Tirsdag 14.apr
+            Pair(LocalDate.of(2026, 4, 14), Triple(getOrCreateTeam("Kolbein", "Aki", TeamColor.BLUE), getOrCreateTeam("Såndræ F", "Eivind", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 4, 14), Triple(getOrCreateTeam("Eivind", "Stian", TeamColor.RED), getOrCreateTeam("Aki", "Håkon", TeamColor.BLUE), Pair(10, 8))),
+
+            // Onsdag 15.apr
+            Pair(LocalDate.of(2026, 4, 15), Triple(getOrCreateTeam("Nora", "Stian", TeamColor.RED), getOrCreateTeam("Jarle", "Dan-Eric", TeamColor.BLUE), Pair(10, 5))),
+            Pair(LocalDate.of(2026, 4, 15), Triple(getOrCreateTeam("Kolbein", "Håkon", TeamColor.RED), getOrCreateTeam("Aki", "Eivind", TeamColor.BLUE), Pair(10, 6))),
+            Pair(LocalDate.of(2026, 4, 15), Triple(getOrCreateTeam("Daniel", "Carl-Trygve", TeamColor.RED), getOrCreateTeam("Sondre FS", "Roar", TeamColor.BLUE), Pair(10, 1))),
+
+            // Torsdag 16.apr
+            Pair(LocalDate.of(2026, 4, 16), Triple(getOrCreateTeam("Såndræ F", "Sondre FS", TeamColor.BLUE), getOrCreateTeam("Daniel", "Nora", TeamColor.RED), Pair(10, 7))),
+            Pair(LocalDate.of(2026, 4, 16), Triple(getOrCreateTeam("Kolbein", "Eivind", TeamColor.BLUE), getOrCreateTeam("Aki", "Andreas", TeamColor.RED), Pair(10, 9))),
+            Pair(LocalDate.of(2026, 4, 16), Triple(getOrCreateTeam("Kolbein", "Aki", TeamColor.BLUE), getOrCreateTeam("Nora", "Eivind", TeamColor.RED), Pair(10, 6))),
+
+            // Fredag 17.apr
+            Pair(LocalDate.of(2026, 4, 17), Triple(getOrCreateTeam("Roar", "Stian", TeamColor.BLUE), getOrCreateTeam("Aki", "Erlend", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 4, 17), Triple(getOrCreateTeam("Roar", "Carl-Trygve", TeamColor.BLUE), getOrCreateTeam("Nora", "Eivind", TeamColor.RED), Pair(10, 9))),
+
+            // Mandag 20.apr
+            Pair(LocalDate.of(2026, 4, 20), Triple(getOrCreateTeam("Anton", "Eivind", TeamColor.RED), getOrCreateTeam("Nora", "Helge", TeamColor.BLUE), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 4, 20), Triple(getOrCreateTeam("Aki", "Eivind", TeamColor.RED), getOrCreateTeam("Nora", "Stian", TeamColor.BLUE), Pair(10, 4))),
+
+            // Tirsdag 21.apr
+            Pair(LocalDate.of(2026, 4, 21), Triple(getOrCreateTeam("Såndræ F", "Håkon", TeamColor.RED), getOrCreateTeam("Nora", "Eivind", TeamColor.BLUE), Pair(10, 6))),
+            Pair(LocalDate.of(2026, 4, 21), Triple(getOrCreateTeam("Aki", "Anton", TeamColor.BLUE), getOrCreateTeam("Kolbein", "Roar", TeamColor.RED), Pair(10, 9))),
+
+            // Onsdag 23.apr
+            Pair(LocalDate.of(2026, 4, 23), Triple(getOrCreateTeam("Daniel", "Håkon", TeamColor.BLUE), getOrCreateTeam("Kolbein", "Aki", TeamColor.RED), Pair(10, 8))),
+            Pair(LocalDate.of(2026, 4, 23), Triple(getOrCreateTeam("Kolbein", "Nora", TeamColor.RED), getOrCreateTeam("Eivind", "Aki", TeamColor.BLUE), Pair(10, 5))),
         ).map { (matchDate, triple) ->
             val (team1, team2, gameScore) = triple
             val (g1, g2) = gameScore

@@ -7,7 +7,7 @@ import { TeamSummaryCardComponent } from './team-summary-card.component';
 import { PlayerNameComponent } from '../player/player-name.component';
 
 @Component({
-  selector: 'team-detail',
+  selector: 'team-profile',
   standalone: true,
   imports: [CommonModule, TeamSummaryCardComponent, PlayerNameComponent],
   template: `
@@ -161,7 +161,7 @@ import { PlayerNameComponent } from '../player/player-name.component';
     </div>
   `,
 })
-export class TeamComponent {
+export class TeamProfileComponent {
   private api = inject(FoosballApiService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);

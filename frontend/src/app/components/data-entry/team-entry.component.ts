@@ -5,7 +5,7 @@ import {TeamColor} from '../../models/foosball.models';
 import {PlayerEntryComponent} from './player-entry.component';
 
 @Component({
-  selector: 'team-component',
+  selector: 'team-entry',
   imports: [CommonModule, FormField, PlayerEntryComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -31,7 +31,7 @@ import {PlayerEntryComponent} from './player-entry.component';
     }
   `
 })
-export class TeamComponent {
+export class TeamEntryComponent {
   readonly teamColor = input.required<TeamColor>();
 
   readonly teamForm = input.required<FieldTree<{ offense: string; defense: string }, any>>();

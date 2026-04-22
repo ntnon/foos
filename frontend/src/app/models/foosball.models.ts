@@ -109,6 +109,13 @@ export interface Match {
   winnerColor: string | null;
 }
 
+export interface MatchFormModel {
+  team1: { offense: string; defense: string; teamColor: TeamColor };
+  team2:  { offense: string; defense: string; teamColor: TeamColor };
+  team1GameScore: number;
+  team2GameScore: number;
+}
+
 export interface TeamRequest {
   offense: number;
   defense: number;

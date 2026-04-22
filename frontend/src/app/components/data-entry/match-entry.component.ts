@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FoosballApiService } from '../../services/foosball-api.service';
 import { DataLoaderService } from '../../services/data-loader.service';
 import {form, required} from '@angular/forms/signals';
-import {TeamComponent} from './team-entry.component';
+import {TeamEntryComponent} from './team-entry.component';
 import { ScoreEntryComponent } from './score-entry.component';
 import { validate, submit } from '@angular/forms/signals';
 import { TeamColor } from '../../models/foosball.models';
 import { SoccerFieldComponent } from '../../components/soccer-field.component';
+import { CreateMatchRequest, MatchFormModel } from '../../models/foosball.models';
+
 
 @Component({
   selector: 'match-entry',
-  imports: [CommonModule, TeamComponent, ScoreEntryComponent, SoccerFieldComponent],
+  imports: [CommonModule, TeamEntryComponent, ScoreEntryComponent, SoccerFieldComponent],
   template: `
     <form (submit)="onSubmit($event)">
       <div class="match-width-container">
@@ -25,7 +27,7 @@ import { SoccerFieldComponent } from '../../components/soccer-field.component';
                  [class.submitting-blue]="isSubmitting()"
                  [class.entering-blue]="isResetting()"
                  [class.offscreen]="!isSubmitting() && !isResetting() && isOffscreen()">
-              <team-component [teamColor]="'BLUE'" [teamForm]="matchForm.teamBlue"/>
+              <team-entry [teamColor]="'BLUE'" [teamForm]="matchForm.team1"/>
               <score-tracker [teamColor]="'BLUE'" [formField]="matchForm.team1GameScore" [targetScore]="targetScore()"/>
             </div>
 
@@ -35,7 +37,7 @@ import { SoccerFieldComponent } from '../../components/soccer-field.component';
                  [class.entering-red]="isResetting()"
                  [class.offscreen]="!isSubmitting() && !isResetting() && isOffscreen()">
               <score-tracker [teamColor]="'RED'" [formField]="matchForm.team2GameScore" [targetScore]="targetScore()"/>
-              <team-component [teamColor]="'RED'" [teamForm]="matchForm.teamRed"/>
+              <team-entry [teamColor]="'RED'" [teamForm]="matchForm.team2"/>
             </div>
 
           </div>
@@ -162,26 +164,26 @@ export class MatchEntryComponent {
     }
   )
 
-  matchModel = signal({
-    teamBlue: {offense: '', defense: '', teamColor: 'BLUE'},
-    teamRed: {offense: '', defense: '', teamColor: 'RED'},
+  matchModel = signal<MatchFormModel>({
+    team1: {offense: '', defense: '', teamColor: 'BLUE'},
+    team2: {offense: '', defense: '', teamColor: 'RED'},
     team1GameScore: 0,
     team2GameScore: 0,
   });
 
   matchForm = form(this.matchModel, (s) => {
-    required(s.team1GameScore, {message: 'Team 1 score is required'});
-    required(s.team2GameScore, {message: 'Team 2 score is required'});
-    required(s.teamBlue.offense, {message: 'Team 1 Player 1 is required'});
-    required(s.teamBlue.defense, {message: 'Team 1 Player 2 is required'});
-    required(s.teamRed.offense, {message: 'Team 2 Player 1 is required'});
-    required(s.teamRed.defense, {message: 'Team 2 Player 2 is required'});
-    validate(s.teamBlue, ({value}) => {
+    required(s.team1.offense, {message: 'Team 1 Player 1 is required'});
+    required(s.team1.defense, {message: 'Team 1 Player 2 is required'});
+    required(s.team2.offense, {message: 'Team 2 Player 1 is required'});
+    required(s.team2.defense, { message: 'Team 2 Player 2 is required' });
+
+    // validators
+    validate(s.team1, ({value}) => {
       if (value().offense && value().offense === value().defense)
         return {kind: 'duplicate', message: 'Team 1 players cannot be the same'};
       return null;
     });
-    validate(s.teamRed, ({value}) => {
+    validate(s.team2, ({value}) => {
       if (value().offense && value().offense === value().defense)
         return {kind: 'duplicate', message: 'Team 2 players cannot be the same'};
       return null;
@@ -209,13 +211,15 @@ export class MatchEntryComponent {
       return null;
     });
     validate(s, ({valueOf}) => {
-      const allPlayers = [valueOf(s.teamBlue.offense), valueOf(s.teamBlue.defense), valueOf(s.teamRed.offense), valueOf(s.teamRed.defense)]
+      const allPlayers = [valueOf(s.team1.offense), valueOf(s.team1.defense), valueOf(s.team2.offense), valueOf(s.team2.defense)]
       const uniquePlayers = new Set(allPlayers)
       if (allPlayers.length !== uniquePlayers.size && !uniquePlayers.has(''))
         return {kind: 'duplicate', message: 'A player can only fill one spot'};
       return null;
     });
   });
+
+  m = this.matchForm.team1GameScore
 
 
 
@@ -229,15 +233,15 @@ export class MatchEntryComponent {
     submit(this.matchForm, async () => {
       try {
         const v = this.matchModel();
-        const matchRequest = {
+        const matchRequest: CreateMatchRequest = {
           team1: {
-            offense: Number(v.teamBlue.offense),
-            defense: Number(v.teamBlue.defense),
+            offense: Number(v.team1.offense),
+            defense: Number(v.team1.defense),
             teamColor: 'BLUE' as TeamColor
           },
           team2: {
-            offense: Number(v.teamRed.offense),
-            defense: Number(v.teamRed.defense),
+            offense: Number(v.team2.offense),
+            defense: Number(v.team2.defense),
             teamColor: 'RED' as TeamColor
           },
           team1GameScore: v.team1GameScore,
@@ -258,8 +262,8 @@ export class MatchEntryComponent {
 
           // 3. Reset form while completely hidden
           this.matchModel.set({
-            teamBlue: { offense: '', defense: '', teamColor: 'BLUE' as TeamColor },
-            teamRed: { offense: '', defense: '', teamColor: 'RED' as TeamColor },
+            team1: { offense: '', defense: '', teamColor: 'BLUE' as TeamColor },
+            team2: { offense: '', defense: '', teamColor: 'RED' as TeamColor },
             team1GameScore: 0,
             team2GameScore: 0,
           });
