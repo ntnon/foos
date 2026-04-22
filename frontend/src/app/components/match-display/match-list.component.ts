@@ -10,7 +10,7 @@ import { Match } from '../../models/foosball.models';
   template: `
     @if (sortedMatches().length === 0) {
       <div class="text-center py-10">
-        <p class="text-gray-400">No matches found.</p>
+        <p class="text-gray-400">Ingen kamper funnet.</p>
       </div>
     } @else {
       <div class="space-y-8">
@@ -25,7 +25,7 @@ import { Match } from '../../models/foosball.models';
               </div>
               <div class="flex-1 h-px bg-gray-200"></div>
               <span class="text-xs text-gray-400 font-semibold">
-                {{ group.matches.length }} {{ group.matches.length === 1 ? 'match' : 'matches' }}
+                {{ group.matches.length }} {{ group.matches.length === 1 ? 'kamp' : 'kamper' }}
               </span>
             </div>
             <!-- Matches for this day -->
@@ -70,11 +70,11 @@ export class MatchListComponent {
 
   formatDate(dateStr: string): string {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return date.toLocaleDateString('nb-NO', { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
   formatDayOfWeek(dateStr: string): string {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { weekday: 'short' });
+    return date.toLocaleDateString('nb-NO', { weekday: 'short' });
   }
 }

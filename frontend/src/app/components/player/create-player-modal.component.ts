@@ -13,18 +13,18 @@ import { Player } from '../../models/foosball.models';
       <div class="modal-overlay" (click)="close()">
         <div class="modal-content" (click)="$event.stopPropagation()">
           <div class="modal-header">
-            <h2>Create New Player</h2>
+            <h2>Opprett ny spiller</h2>
             <button class="close-btn" (click)="close()">×</button>
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="playerName">Player Name</label>
+              <label for="playerName">Spillernavn</label>
               <input
                 id="playerName"
                 type="text"
                 [(ngModel)]="playerName"
                 (keyup.enter)="createPlayer()"
-                placeholder="Enter player name"
+                placeholder="Skriv inn spillernavn"
                 class="input-field"
               />
             </div>
@@ -32,7 +32,7 @@ import { Player } from '../../models/foosball.models';
               <div class="error-message">{{ error() }}</div>
             }
             @if (success()) {
-              <div class="success-message">Player created successfully!</div>
+              <div class="success-message">Spilleren ble opprettet!</div>
             }
           </div>
           <div class="modal-footer">
@@ -41,14 +41,14 @@ import { Player } from '../../models/foosball.models';
               (click)="close()"
               [disabled]="isLoading()"
             >
-              Cancel
+              Avbryt
             </button>
             <button
               class="btn btn-primary"
               (click)="createPlayer()"
               [disabled]="!playerName.trim() || isLoading()"
             >
-              {{ isLoading() ? 'Creating...' : 'Create Player' }}
+              {{ isLoading() ? 'Oppretter...' : 'Opprett spiller' }}
             </button>
           </div>
         </div>
@@ -237,7 +237,7 @@ export class CreatePlayerModalComponent {
   createPlayer(): void {
     const name = this.playerName.trim();
     if (!name) {
-      this.error.set('Player name cannot be empty');
+      this.error.set('Spillernavn kan ikke være tomt');
       return;
     }
 
@@ -255,7 +255,7 @@ export class CreatePlayerModalComponent {
       },
       error: (err) => {
         this.isLoading.set(false);
-        this.error.set(err.error?.message || 'Failed to create player');
+        this.error.set(err.error?.message || 'Kunne ikke opprette spilleren');
       }
     });
   }

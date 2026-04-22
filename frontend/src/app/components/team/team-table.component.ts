@@ -13,7 +13,7 @@ type SortField = 'name' | 'elo' | 'winRate';
   imports: [CommonModule, SearchBarComponent],
   template: `
     <div class="px-6 py-8 max-w-5xl mx-auto">
-      <h2 class="text-3xl font-black text-gray-900 mb-6">Teams</h2>
+      <h2 class="text-3xl font-black text-gray-900 mb-6">Lag</h2>
 
       <!-- Search + Sort -->
       <div class="mb-6 flex gap-3">
@@ -34,7 +34,7 @@ type SortField = 'name' | 'elo' | 'winRate';
       </div>
 
       @if (loading()) {
-        <div class="text-gray-500 text-center py-12">Loading teams...</div>
+        <div class="text-gray-500 text-center py-12">Laster lag...</div>
       } @else if (error()) {
         <div class="text-red-500 text-center py-12">{{ error() }}</div>
       } @else {
@@ -43,7 +43,7 @@ type SortField = 'name' | 'elo' | 'winRate';
             <thead class="bg-pitch-100 text-pitch-500 uppercase text-xs">
               <tr>
                 <th class="px-4 py-3 cursor-pointer hover:text-pitch-900" (click)="setSort('name')">
-                  Team {{ sortField() === 'name' ? (sortAsc() ? '↑' : '↓') : '' }}
+                  Lag {{ sortField() === 'name' ? (sortAsc() ? '↑' : '↓') : '' }}
                 </th>
                 <th class="px-4 py-3 cursor-pointer hover:text-pitch-900" (click)="setSort('elo')">
                   ELO {{ sortField() === 'elo' ? (sortAsc() ? '↑' : '↓') : '' }}
@@ -75,7 +75,7 @@ type SortField = 'name' | 'elo' | 'winRate';
                 </tr>
               }
               @empty {
-                <tr><td colspan="3" class="text-center py-10 text-gray-400">No teams found</td></tr>
+                <tr><td colspan="3" class="text-center py-10 text-gray-400">Ingen lag funnet</td></tr>
               }
             </tbody>
           </table>
@@ -87,13 +87,13 @@ type SortField = 'name' | 'elo' | 'winRate';
               class="px-4 py-2 rounded-lg bg-pitch-100 hover:bg-pitch-300 disabled:opacity-40 disabled:cursor-not-allowed"
               [disabled]="currentPage() === 0"
               (click)="goToPage(currentPage() - 1)"
-            >← Prev</button>
-            <span class="text-sm text-pitch-500">Page {{ currentPage() + 1 }} of {{ totalPages() }}</span>
+            >← Forrige</button>
+            <span class="text-sm text-pitch-500">Side {{ currentPage() + 1 }} av {{ totalPages() }}</span>
             <button
               class="px-4 py-2 rounded-lg bg-pitch-100 hover:bg-pitch-300 disabled:opacity-40 disabled:cursor-not-allowed"
               [disabled]="currentPage() === totalPages() - 1"
               (click)="goToPage(currentPage() + 1)"
-            >Next →</button>
+            >Neste →</button>
           </div>
         }
       }
@@ -134,7 +134,7 @@ export class TeamListComponent {
         this.loading.set(false);
       },
       error: () => {
-        this.error.set('Failed to load teams');
+        this.error.set('Kunne ikke laste lag');
         this.loading.set(false);
       }
     });
@@ -161,9 +161,9 @@ export class TeamListComponent {
   sortAsc = signal(false);
 
   readonly sortOptions: { field: SortField; label: string }[] = [
-    { field: 'name', label: 'Name' },
+    { field: 'name', label: 'Navn' },
     { field: 'elo', label: 'ELO' },
-    { field: 'winRate', label: 'Win %' },
+    { field: 'winRate', label: 'Seier %' },
   ];
 
   sortedTeams = computed(() => {

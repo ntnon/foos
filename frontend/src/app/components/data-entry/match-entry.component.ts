@@ -69,10 +69,10 @@ import { CreateMatchRequest, MatchFormModel } from '../../models/foosball.models
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
                 </svg>
-                Submitting...
+                Sender inn...
               </span>
             } @else {
-              ⚽ Submit Match
+              ⚽ Send inn kamp
             }
           </button>
         </div>
@@ -172,49 +172,49 @@ export class MatchEntryComponent {
   });
 
   matchForm = form(this.matchModel, (s) => {
-    required(s.team1.offense, {message: 'Team 1 Player 1 is required'});
-    required(s.team1.defense, {message: 'Team 1 Player 2 is required'});
-    required(s.team2.offense, {message: 'Team 2 Player 1 is required'});
-    required(s.team2.defense, { message: 'Team 2 Player 2 is required' });
+    required(s.team1.offense, {message: 'Spiller 1 på lag 1 er påkrevd'});
+    required(s.team1.defense, {message: 'Spiller 2 på lag 1 er påkrevd'});
+    required(s.team2.offense, {message: 'Spiller 1 på lag 2 er påkrevd'});
+    required(s.team2.defense, { message: 'Spiller 2 på lag 2 er påkrevd' });
 
     // validators
     validate(s.team1, ({value}) => {
       if (value().offense && value().offense === value().defense)
-        return {kind: 'duplicate', message: 'Team 1 players cannot be the same'};
+        return {kind: 'duplicate', message: 'Spillerne på lag 1 kan ikke være like'};
       return null;
     });
     validate(s.team2, ({value}) => {
       if (value().offense && value().offense === value().defense)
-        return {kind: 'duplicate', message: 'Team 2 players cannot be the same'};
+        return {kind: 'duplicate', message: 'Spillerne på lag 2 kan ikke være like'};
       return null;
     });
     validate(s, ({value}) => {
       const v = value();
       if (v.team1GameScore === this.targetScore() && v.team2GameScore === this.targetScore())
-        return {kind: 'tie', message: 'There can be only one winner'};
+        return {kind: 'tie', message: 'Det kan bare være én vinner'};
       return null;
     });
     validate(s.team1GameScore, ({value}) => {
       if (value() > this.targetScore())
-        return {kind: 'overScore', message: 'Score cannot exceed 10'};
+        return {kind: 'overScore', message: 'Poengsummen kan ikke overstige 10'};
       return null;
     });
     validate(s.team2GameScore, ({value}) => {
       if (value() > this.targetScore())
-        return {kind: 'overScore', message: 'Score cannot exceed 10'};
+        return {kind: 'overScore', message: 'Poengsummen kan ikke overstige 10'};
       return null;
     });
     validate(s, () => {
       if (!this.hasSubmitted()) return null;
       if(!this.winner())
-        return {kind: 'dnf', message: 'There must be exactly one winner'};
+        return {kind: 'dnf', message: 'Det må være nøyaktig én vinner'};
       return null;
     });
     validate(s, ({valueOf}) => {
       const allPlayers = [valueOf(s.team1.offense), valueOf(s.team1.defense), valueOf(s.team2.offense), valueOf(s.team2.defense)]
       const uniquePlayers = new Set(allPlayers)
       if (allPlayers.length !== uniquePlayers.size && !uniquePlayers.has(''))
-        return {kind: 'duplicate', message: 'A player can only fill one spot'};
+        return {kind: 'duplicate', message: 'En spiller kan bare ha én plass'};
       return null;
     });
   });
@@ -285,7 +285,7 @@ export class MatchEntryComponent {
         this.apiError.set(
           error?.error?.message ||
           error?.message ||
-          'Failed to submit match. Please try again.'
+          'Kunne ikke sende inn kampen. Prøv igjen.'
         );
         await new Promise(resolve => setTimeout(resolve, 3000));
         this.apiError.set(null);

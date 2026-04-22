@@ -28,7 +28,7 @@ import { Match, MatchTeam } from '../../models/foosball.models';
           <p class="font-bold text-base text-gray-400">-</p>
           <p class="font-bold text-base text-gray-500">{{ orderedTeams()[1].pairWins }}</p>)
         </div>
-        <span class="text-xs text-gray-400 uppercase tracking-wide">all time</span>
+        <span class="text-xs text-gray-400 uppercase tracking-wide">totalt</span>
       </div>
 
       <!-- Right team -->

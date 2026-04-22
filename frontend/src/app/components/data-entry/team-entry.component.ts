@@ -13,14 +13,14 @@ import {PlayerEntryComponent} from './player-entry.component';
          [class.flex-row-reverse]="teamColor() === 'RED'"
          [class.flex-row]="teamColor() !== 'RED'">
       <div class="flex items-center" [class.flex-col]="teamColor() !== 'RED'" [class.flex-col-reverse]="teamColor() === 'RED'">
-        <p class="font-bold text-l text-gray-700">⚔️ Offense</p>
+        <p class="font-bold text-l text-gray-700">⚔️ Angrep</p>
         <select-player [formField]="teamForm().offense"/>
       </div>
       <button type="button" class="text-3xl flex items-center" (click)="swapPlayers()">
         ⇄
       </button>
       <div class="flex items-center" [class.flex-col]="teamColor() !== 'RED'" [class.flex-col-reverse]="teamColor() === 'RED'">
-        <p class="font-bold text-l text-gray-700">🛡️Defense</p>
+        <p class="font-bold text-l text-gray-700">🛡️ Forsvar</p>
         <select-player [formField]="teamForm().defense"/>
       </div>
     </div>

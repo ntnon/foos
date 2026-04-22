@@ -12,10 +12,10 @@ import { PlayerNameComponent } from '../player/player-name.component';
   imports: [CommonModule, TeamSummaryCardComponent, PlayerNameComponent],
   template: `
     <div class="px-6 py-8 max-w-5xl mx-auto">
-      <button (click)="back()" class="mb-6 text-sm text-pitch-500 hover:underline">← Back to Teams</button>
+      <button (click)="back()" class="mb-6 text-sm text-pitch-500 hover:underline">← Tilbake til lag</button>
 
       @if (loading()) {
-        <div class="text-gray-500 text-center py-16">Loading...</div>
+        <div class="text-gray-500 text-center py-16">Laster...</div>
       } @else if (error()) {
         <div class="text-red-500 text-center py-16">{{ error() }}</div>
       } @else if (stats()) {
@@ -32,26 +32,26 @@ import { PlayerNameComponent } from '../player/player-name.component';
           <table class="w-full text-sm text-left bg-white">
             <thead class="bg-pitch-100 text-pitch-500 uppercase text-xs">
               <tr>
-                <th class="px-4 py-3">Stat</th>
-                <th class="px-4 py-3">Value</th>
+                <th class="px-4 py-3">Statistikk</th>
+                <th class="px-4 py-3">Verdi</th>
               </tr>
             </thead>
             <tbody>
               <!-- Highlighted: most interesting stats -->
               <tr class="border-t border-gray-100 bg-pitch-50">
-                <td class="px-4 py-3 font-semibold text-pitch-600">ELO Rating</td>
+                <td class="px-4 py-3 font-semibold text-pitch-600">ELO-rating</td>
                 <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">{{ stats()!.eloRating | number:'1.0-0' }}</td>
               </tr>
               <tr class="border-t border-gray-100 bg-pitch-50">
-                <td class="px-4 py-3 font-semibold text-pitch-600">Win Rate</td>
+                <td class="px-4 py-3 font-semibold text-pitch-600">Seiersprosent</td>
                 <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">{{ (stats()!.winRate * 100) | number:'1.0-1' }}%</td>
               </tr>
               <tr class="border-t border-gray-100 bg-pitch-50">
-                <td class="px-4 py-3 font-semibold text-pitch-600">Record</td>
+                <td class="px-4 py-3 font-semibold text-pitch-600">Rekord</td>
                 <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">{{ stats()!.wins }}W – {{ stats()!.losses }}L</td>
               </tr>
               <tr class="border-t border-gray-100 bg-pitch-50">
-                <td class="px-4 py-3 font-semibold text-pitch-600">Current Streak</td>
+                <td class="px-4 py-3 font-semibold text-pitch-600">Nåværende rekke</td>
                 <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">
                   {{ stats()!.currentWinStreak }}
                   @if (stats()!.hotStreak) { <span class="ml-1">🔥</span> }
@@ -73,39 +73,39 @@ import { PlayerNameComponent } from '../player/player-name.component';
                 </tr>
               }
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Best Streak</td>
+                <td class="px-4 py-3 text-pitch-500">Beste rekke</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.longestWinStreak }}</td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Best Color</td>
+                <td class="px-4 py-3 text-pitch-500">Beste farge</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">
-                  {{ stats()!.colorWinRateRed >= stats()!.colorWinRateBlue ? '🔴 Red' : '🔵 Blue' }}
+                  {{ stats()!.colorWinRateRed >= stats()!.colorWinRateBlue ? '🔴 Rødt' : '🔵 Blått' }}
                   <span class="text-pitch-400 font-normal ml-1">
-                    ({{ ((stats()!.colorWinRateRed >= stats()!.colorWinRateBlue ? stats()!.colorWinRateRed : stats()!.colorWinRateBlue) * 100) | number:'1.0-1' }}% win rate)
+                    ({{ ((stats()!.colorWinRateRed >= stats()!.colorWinRateBlue ? stats()!.colorWinRateRed : stats()!.colorWinRateBlue) * 100) | number:'1.0-1' }}% seiersprosent)
                   </span>
                 </td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Avg Score Diff</td>
+                <td class="px-4 py-3 text-pitch-500">Gj.snitt poengdiff</td>
                 <td class="px-4 py-3 font-mono font-bold"
                     [class]="stats()!.averageScoreDifference >= 0 ? 'text-field-600' : 'text-team-red-500'">
                   {{ stats()!.averageScoreDifference >= 0 ? '+' : '' }}{{ stats()!.averageScoreDifference | number:'1.1-1' }}
                 </td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Avg Scored / Match</td>
+                <td class="px-4 py-3 text-pitch-500">Gj.snitt scoret / kamp</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.avgPointsScoredPerMatch | number:'1.1-1' }}</td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Avg Allowed / Match</td>
+                <td class="px-4 py-3 text-pitch-500">Gj.snitt sluppet inn / kamp</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.avgPointsAllowedPerMatch | number:'1.1-1' }}</td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Last Played</td>
+                <td class="px-4 py-3 text-pitch-500">Sist spilt</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ formatDate(stats()!.lastPlayed) }}</td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Avg Matches / Week</td>
+                <td class="px-4 py-3 text-pitch-500">Gj.snitt kamper / uke</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.avgMatchesPerWeek | number:'1.1-1' }}</td>
               </tr>
             </tbody>
@@ -113,16 +113,16 @@ import { PlayerNameComponent } from '../player/player-name.component';
         </div>
 
         <!-- Match history -->
-        <h3 class="text-lg font-bold text-pitch-900 mb-3">Match History</h3>
+        <h3 class="text-lg font-bold text-pitch-900 mb-3">Kamphistorikk</h3>
         <div class="overflow-x-auto rounded-xl shadow">
           <table class="w-full text-sm text-left bg-white">
             <thead class="bg-pitch-100 text-pitch-500 uppercase text-xs">
               <tr>
-                <th class="px-4 py-3">Date</th>
-                <th class="px-4 py-3">Result</th>
-                <th class="px-4 py-3 text-center">Score</th>
-                <th class="px-4 py-3 text-center">All Time</th>
-                <th class="px-4 py-3">Opponent</th>
+                <th class="px-4 py-3">Dato</th>
+                <th class="px-4 py-3">Resultat</th>
+                <th class="px-4 py-3 text-center">Poeng</th>
+                <th class="px-4 py-3 text-center">Totalt</th>
+                <th class="px-4 py-3">Motstander</th>
               </tr>
             </thead>
             <tbody>
@@ -134,7 +134,7 @@ import { PlayerNameComponent } from '../player/player-name.component';
                 <tr class="border-t border-gray-100 hover:bg-team-blue-50 transition-colors">
                   <td class="px-4 py-3 text-pitch-400 whitespace-nowrap">{{ formatDate(match.matchDate) }}</td>
                   <td class="px-4 py-3 font-bold" [class]="won ? 'text-field-600' : 'text-team-red-500'">
-                    {{ won ? 'Win' : 'Loss' }}
+                    {{ won ? 'Seier' : 'Tap' }}
                   </td>
                   <td class="px-4 py-3 text-center font-black whitespace-nowrap">
                     <span [class]="won ? 'text-pitch-900' : 'text-pitch-400'">{{ us.gameScore }}</span>
@@ -151,7 +151,7 @@ import { PlayerNameComponent } from '../player/player-name.component';
                 </tr>
               }
               @empty {
-                <tr><td colspan="5" class="text-center py-10 text-pitch-300">No matches yet</td></tr>
+                <tr><td colspan="5" class="text-center py-10 text-pitch-300">Ingen kamper ennå</td></tr>
               }
             </tbody>
           </table>
@@ -188,7 +188,7 @@ export class TeamProfileComponent {
               error: () => {},
             });
           },
-          error: () => { this.error.set('Team not found'); this.loading.set(false); },
+          error: () => { this.error.set('Laget ble ikke funnet'); this.loading.set(false); },
         });
       } else {
         this.router.navigate(['/stats/teams']);
@@ -213,7 +213,7 @@ export class TeamProfileComponent {
   }
 
   formatDate(dateStr: string): string {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('nb-NO', {
       month: 'short', day: 'numeric', year: 'numeric',
     });
   }

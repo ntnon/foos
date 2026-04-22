@@ -12,10 +12,10 @@ import { PlayerNameComponent } from './player-name.component';
   imports: [CommonModule, TeamSummaryCardComponent, PlayerNameComponent],
   template: `
     <div class="px-6 py-8 max-w-5xl mx-auto">
-      <button (click)="back()" class="mb-6 text-sm text-pitch-500 hover:underline">← Back to Players</button>
+      <button (click)="back()" class="mb-6 text-sm text-pitch-500 hover:underline">← Tilbake til spillere</button>
 
       @if (loading()) {
-        <div class="text-gray-500 text-center py-16">Loading...</div>
+        <div class="text-gray-500 text-center py-16">Laster...</div>
       } @else if (error()) {
         <div class="text-red-500 text-center py-16">{{ error() }}</div>
       } @else if (stats()) {
@@ -30,57 +30,57 @@ import { PlayerNameComponent } from './player-name.component';
           <table class="w-full text-sm text-left bg-white">
             <thead class="bg-pitch-100 text-pitch-500 uppercase text-xs">
               <tr>
-                <th class="px-4 py-3">Stat</th>
-                <th class="px-4 py-3">Value</th>
+                <th class="px-4 py-3">Statistikk</th>
+                <th class="px-4 py-3">Verdi</th>
               </tr>
             </thead>
             <tbody>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">ELO Rating</td>
+                <td class="px-4 py-3 text-pitch-500">ELO-rating</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.eloRating | number:'1.0-0' }}</td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Win Rate</td>
+                <td class="px-4 py-3 text-pitch-500">Seiersprosent</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ (stats()!.winRate * 100) | number:'1.0-1' }}%</td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Record</td>
+                <td class="px-4 py-3 text-pitch-500">Rekord</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.wins }}W – {{ stats()!.losses }}L</td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Current Streak</td>
+                <td class="px-4 py-3 text-pitch-500">Nåværende rekke</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">
                   {{ stats()!.currentWinStreak }}
                   @if (stats()!.hotStreak) { <span class="ml-1">🔥</span> }
                 </td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">Best Streak</td>
+                <td class="px-4 py-3 text-pitch-500">Beste rekke</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.longestWinStreak }}</td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">As Offense</td>
+                <td class="px-4 py-3 text-pitch-500">Som angrep</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">
                   {{ stats()!.winsAsOffense }}W – {{ stats()!.matchesAsOffense - stats()!.winsAsOffense }}L
                   <span class="text-pitch-400 font-normal ml-2">({{ (stats()!.positionWinRateOffense * 100) | number:'1.0-1' }}%)</span>
                 </td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">As Defense</td>
+                <td class="px-4 py-3 text-pitch-500">Som forsvar</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">
                   {{ stats()!.winsAsDefense }}W – {{ stats()!.matchesAsDefense - stats()!.winsAsDefense }}L
                   <span class="text-pitch-400 font-normal ml-2">({{ (stats()!.positionWinRateDefense * 100) | number:'1.0-1' }}%)</span>
                 </td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">As Red</td>
+                <td class="px-4 py-3 text-pitch-500">Som rødt lag</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">
                   {{ stats()!.winsAsRed }}W – {{ stats()!.matchesAsRed - stats()!.winsAsRed }}L
                   <span class="text-pitch-400 font-normal ml-2">({{ (stats()!.colorWinRateRed * 100) | number:'1.0-1' }}%)</span>
                 </td>
               </tr>
               <tr class="border-t border-gray-100">
-                <td class="px-4 py-3 text-pitch-500">As Blue</td>
+                <td class="px-4 py-3 text-pitch-500">Som blått lag</td>
                 <td class="px-4 py-3 font-mono font-bold text-pitch-900">
                   {{ stats()!.winsAsBlue }}W – {{ stats()!.matchesAsBlue - stats()!.winsAsBlue }}L
                   <span class="text-pitch-400 font-normal ml-2">({{ (stats()!.colorWinRateBlue * 100) | number:'1.0-1' }}%)</span>
@@ -92,19 +92,19 @@ import { PlayerNameComponent } from './player-name.component';
 
         <!-- Social table -->
         @if (stats()!.bestPartners.length || stats()!.worstEnemies.length) {
-          <h3 class="text-lg font-bold text-pitch-900 mb-3">Relationships</h3>
+          <h3 class="text-lg font-bold text-pitch-900 mb-3">Relasjoner</h3>
           <div class="overflow-x-auto rounded-xl shadow mb-10">
             <table class="w-full text-sm text-left bg-white">
               <thead class="bg-pitch-100 text-pitch-500 uppercase text-xs">
                 <tr>
-                  <th class="px-4 py-3">Stat</th>
-                  <th class="px-4 py-3">Value</th>
+                  <th class="px-4 py-3">Statistikk</th>
+                  <th class="px-4 py-3">Verdi</th>
                 </tr>
               </thead>
               <tbody>
                 @if (stats()!.bestPartners.length) {
                   <tr class="border-t border-gray-100">
-                    <td class="px-4 py-3 text-pitch-500">Best Teammates</td>
+                    <td class="px-4 py-3 text-pitch-500">Beste lagkamerater</td>
                     <td class="px-4 py-3">
                       <div class="flex flex-wrap gap-2">
                         @for (p of stats()!.bestPartners.slice(0, 3); track p.partnerId) {
@@ -121,7 +121,7 @@ import { PlayerNameComponent } from './player-name.component';
                 }
                 @if (stats()!.worstEnemies.length) {
                   <tr class="border-t border-gray-100">
-                    <td class="px-4 py-3 text-pitch-500">Toughest Rival</td>
+                    <td class="px-4 py-3 text-pitch-500">Tøffeste rival</td>
                     <td class="px-4 py-3">
                       <player-name
                         [playerId]="stats()!.worstEnemies[0].rivalId"
@@ -137,16 +137,16 @@ import { PlayerNameComponent } from './player-name.component';
         }
 
         <!-- Match history -->
-        <h3 class="text-lg font-bold text-pitch-900 mb-3">Match History</h3>
+        <h3 class="text-lg font-bold text-pitch-900 mb-3">Kamphistorikk</h3>
         <div class="overflow-x-auto rounded-xl shadow">
           <table class="w-full text-sm text-left bg-white">
             <thead class="bg-pitch-100 text-pitch-500 uppercase text-xs">
               <tr>
-                <th class="px-4 py-3">Date</th>
-                <th class="px-4 py-3">Result</th>
-                <th class="px-4 py-3 text-center">Score</th>
+                <th class="px-4 py-3">Dato</th>
+                <th class="px-4 py-3">Resultat</th>
+                <th class="px-4 py-3 text-center">Poeng</th>
                 <th class="px-4 py-3">Partner</th>
-                <th class="px-4 py-3">Opponent</th>
+                <th class="px-4 py-3">Motstander</th>
               </tr>
             </thead>
             <tbody>
@@ -158,7 +158,7 @@ import { PlayerNameComponent } from './player-name.component';
                 <tr class="border-t border-gray-100 hover:bg-team-blue-50 transition-colors">
                   <td class="px-4 py-3 text-pitch-400 whitespace-nowrap">{{ formatDate(match.matchDate) }}</td>
                   <td class="px-4 py-3 font-bold" [class]="won ? 'text-field-600' : 'text-team-red-500'">
-                    {{ won ? 'Win' : 'Loss' }}
+                    {{ won ? 'Seier' : 'Tap' }}
                   </td>
                   <td class="px-4 py-3 text-center font-black whitespace-nowrap">
                     <span [class]="won ? 'text-pitch-900' : 'text-pitch-400'">{{ us.gameScore }}</span>
@@ -173,7 +173,7 @@ import { PlayerNameComponent } from './player-name.component';
                 </tr>
               }
               @empty {
-                <tr><td colspan="5" class="text-center py-10 text-pitch-300">No matches yet</td></tr>
+                <tr><td colspan="5" class="text-center py-10 text-pitch-300">Ingen kamper ennå</td></tr>
               }
             </tbody>
           </table>
@@ -204,7 +204,7 @@ export class PlayerComponent {
         this.matches.set([]);
         this.api.getPlayerStats(this.playerId).subscribe({
           next: (s) => { this.stats.set(s); this.loading.set(false); },
-          error: () => { this.error.set('Player not found'); this.loading.set(false); },
+          error: () => { this.error.set('Spilleren ble ikke funnet'); this.loading.set(false); },
         });
         this.api.getMatchesByPlayer(this.playerId).subscribe({
           next: (ms) => this.matches.set(ms),
@@ -237,7 +237,7 @@ export class PlayerComponent {
   }
 
   formatDate(dateStr: string): string {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('nb-NO', {
       month: 'short', day: 'numeric', year: 'numeric',
     });
   }

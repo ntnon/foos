@@ -22,7 +22,7 @@ import { FormsModule } from '@angular/forms';
           type="button"
           (click)="value.set('')"
           class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-lg leading-none"
-          aria-label="Clear search"
+          aria-label="Tøm søk"
         >✕</button>
       }
     </div>
@@ -31,6 +31,6 @@ import { FormsModule } from '@angular/forms';
 export class SearchBarComponent {
   /** Two-way bound search string */
   value = model('');
-  placeholder = input<string>('Search…');
+  placeholder = input<string>('Søk…');
 }
 

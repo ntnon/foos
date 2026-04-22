@@ -18,22 +18,22 @@
            routerLinkActive="border-b-3 border-amber-400 text-white bg-white/10"
            [routerLinkActiveOptions]="{exact: true}"
            class="relative flex items-center px-5 h-full text-brand-200 hover:text-white hover:bg-white/10 transition-all font-semibold text-sm tracking-wide">
-          🏠 Home
+          🏠 Hjem
         </a>
         <a routerLink="/matches"
            routerLinkActive="border-b-3 border-amber-400 text-white bg-white/10"
            class="relative flex items-center px-5 h-full text-brand-200 hover:text-white hover:bg-white/10 transition-all font-semibold text-sm tracking-wide">
-          🎮 Matches
+          🎮 Kamper
         </a>
         <a routerLink="/stats/players"
            routerLinkActive="border-b-3 border-amber-400 text-white bg-white/10"
            class="relative flex items-center px-5 h-full text-brand-200 hover:text-white hover:bg-white/10 transition-all font-semibold text-sm tracking-wide">
-          👤 Players
+          👤 Spillere
         </a>
         <a routerLink="/stats/teams"
            routerLinkActive="border-b-3 border-amber-400 text-white bg-white/10"
            class="relative flex items-center px-5 h-full text-brand-200 hover:text-white hover:bg-white/10 transition-all font-semibold text-sm tracking-wide">
-          🤝 Teams
+          🤝 Lag
         </a>
 
       </nav>
@@ -44,7 +44,7 @@
   @if (backendStatus.isDown()) {
     <div class="flex items-center gap-3 bg-red-600 text-white text-sm px-4 py-3 shadow-md">
       <span class="text-lg">🔌</span>
-      <span class="flex-1 font-medium">Cannot connect to the backend server. Make sure it is running on port 8081.</span>
+      <span class="flex-1 font-medium">Kan ikke koble til serveren. Sørg for at den kjører på port 8081.</span>
     </div>
   } @else if (error()) {
     <div class="flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 mx-4 mt-3 rounded-lg shadow-sm">

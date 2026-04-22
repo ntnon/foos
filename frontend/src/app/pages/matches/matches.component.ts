@@ -12,21 +12,21 @@ import { Match, MatchTeam } from '../../models/foosball.models';
   imports: [CommonModule, SearchBarComponent],
   template: `
     <div class="px-6 py-8 max-w-5xl mx-auto">
-      <h2 class="text-3xl font-black text-gray-900 mb-6">Matches</h2>
+      <h2 class="text-3xl font-black text-gray-900 mb-6">Kamper</h2>
 
       <div class="mb-6">
-        <search-bar class="flex-1" [(value)]="searchTerm" placeholder="Search by player name…" />
+        <search-bar class="flex-1" [(value)]="searchTerm" placeholder="Søk etter spillernavn…" />
       </div>
 
       <div class="overflow-x-auto rounded-xl shadow">
         <table class="w-full text-sm text-left bg-white">
           <thead class="bg-pitch-100 text-pitch-500 uppercase text-xs">
             <tr>
-              <th class="px-4 py-3">Date</th>
-              <th class="px-4 py-3">Winner</th>
-              <th class="px-4 py-3 text-center">Score</th>
-              <th class="px-4 py-3 text-center">All Time</th>
-              <th class="px-4 py-3">Loser</th>
+              <th class="px-4 py-3">Dato</th>
+              <th class="px-4 py-3">Vinner</th>
+              <th class="px-4 py-3 text-center">Poeng</th>
+              <th class="px-4 py-3 text-center">Totalt</th>
+              <th class="px-4 py-3">Taper</th>
             </tr>
           </thead>
           <tbody>
@@ -69,7 +69,7 @@ import { Match, MatchTeam } from '../../models/foosball.models';
             }
             @empty {
               <tr>
-                <td colspan="5" class="text-center py-10 text-pitch-300">No matches found</td>
+                <td colspan="5" class="text-center py-10 text-pitch-300">Ingen kamper funnet</td>
               </tr>
             }
           </tbody>
@@ -114,7 +114,7 @@ export class MatchesComponent {
   }
 
   formatDate(dateStr: string): string {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('nb-NO', {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
