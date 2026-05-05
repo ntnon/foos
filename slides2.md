@@ -32,7 +32,9 @@ Da trenger man kanskje en app
 
 # Fussball app
 - Lagre fussballresultater
-- Heve kompetanse
+- Styrke kompetanse
+  - koding
+  - og fussball
 - Nysgjerrig på self hosting
 
 ---
@@ -62,142 +64,515 @@ Team Pingvin relevanse
 [ Frontenden ] -> [ Signal forms ]
 ~~~
 ```
-For å forstå frontenden holder det å forstå forholdet mellom tre ting:
-- `FieldTree`
-- `FieldState`
-- `[formField]`
 
-Først lager vi et skjema
+Frontenden er i kjernen et signal form.
+
 
 ---
+# Signal Form
 
-# Start med data
 
-Et skjema starter med en datastruktur, for eksempel:
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ Signal form ]
+~~~
+```
 
+---
+# Signal Form
+
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ Signal form ]
+~~~
+```
+
+## Eksempel
 ```typescript
+// Lag en datastruktur
 interface LoginData {
   email: string;
   password: string;
 }
 ```
-
 ---
+# Signal Form
 
-# Legg dataene i et signal
 
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ Signal form ]
+~~~
+```
+
+## Eksempel
 ```typescript
+// Lag en datastruktur
 interface LoginData {
   email: string;
   password: string;
 }
 
+// Lag en model med datastrukturen
 loginModel = signal<LoginData>({
   email: '',
   password: '',
 });
+
+```
+---
+# Signal Form
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ Signal form ]
+~~~
 ```
 
-loginModel -> single source of truth
-
----
-
-# Lag et skjema av signalet
-
+## Eksempel
 ```typescript
+// Lag en datastruktur
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+// Lag en model med datastrukturen
+loginModel = signal<LoginData>({
+  email: '',
+  password: '',
+});
+
+// Send modelen til form()
 loginForm = form(loginModel);
+
+loginForm // Signal form
 ```
 
-`form()` returnerer et `FieldTree`
-
+---
+Men hva ER et signal form?
 ---
 
-# Samme struktur inn, samme struktur ut
+# Hva er et signal form?
 
-1. `FieldTree` er en node som beskriver et tre eller et subtre
-1. `FieldTree` speiler modellen du sender inn
-1. Hvis modellen er nøstet, blir `FieldTree` også nøstet
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ Signal form ]
+~~~
+```
 
+## FieldTree
+
+## FieldState
+
+## [formField]
 ---
 
-# Samme struktur inn, samme struktur ut
+# Hva er et signal form?
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ Signal form ]
+~~~
+```
 
-1. `FieldTree` er en node som beskriver et tre eller et subtre
-1. `FieldTree` speiler modellen du sender inn
-1. Hvis modellen er nøstet, blir `FieldTree` også nøstet
+## FieldTree
+
+1. `form(Model)` lager et signal form
+
+
+## FieldState
+
+## [formField]
+---
+
+# Hva er et signal form?
+
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ FieldTree ]
+~~~
+```
+
+## FieldTree
+
+1. `form(Model)` lager et ~~signal form~~ `FieldTree`
+
+## FieldState
+
+## [formField]
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ FieldTree ]
+~~~
+```
+
+## FieldTree
+1. `form(Model)` lager et ~~signal form~~ `FieldTree`
+1. Strukturen til et `FieldTree` speiler `Model` - helt eller delvis
+
+## FieldState
+
+## [formField]
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ FieldTree ]
+~~~
+```
+
+## FieldTree
+1. `form(Model)` lager et ~~signal form~~ `FieldTree`
+1. Strukturen til et `FieldTree` speiler `Model` - helt eller delvis
+
+### Eksempel
+```typescript
+interface Match {
+  team1: {
+    players: {
+      offense: string;
+      defense: string;
+    }
+    score: number;
+  },
+  ...
+}
+
+matchForm = form(signal<Match>(...)); // FieldTree
+
+// Har alle feltene til Match
+matchForm
+matchForm.team1
+matchForm.team1.players
+matchForm.team1.players.offense
+matchForm.team1.players.defense
+matchForm.team1.score
+...
+```
+
+## FieldState
+
+## [formField]
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ FieldTree ]
+~~~
+```
+
+## FieldTree
+1. `form(Model)` lager et ~~signal form~~ `FieldTree`
+1. Strukturen til et `FieldTree` speiler `Model` - helt eller delvis
+1. Et felt i et `FieldTree` er også et `FieldTree`
+
+## FieldState
+
+## [formField]
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ] - lager et -> [ FieldTree ]
+~~~
+```
+
+## FieldTree
+1. `form(Model)` lager et ~~signal form~~ `FieldTree`
+1. Strukturen til et `FieldTree` speiler `Model` - helt eller delvis
+1. Et felt i et `FieldTree` er også et `FieldTree`
+
+### Eksempel
 
 ```typescript
-matchModel = signal({
-  team1: {offense: '', defense: ''},
-  team2: {offense: '', defense: ''},
-  team1GameScore: 0,
-  team2GameScore: 0,
-});
-
-matchForm = form(matchModel);
+matchForm                          // FieldTree<Match>
+matchForm.team1                    // FieldTree<Team>
+matchForm.team1.players            // FieldTree<Players>
+matchForm.team1.players.offense    // FieldTree<string>
+matchForm.team1.players.defense    // FieldTree<string>
+matchForm.team1.score              // FieldTree<number>
+...
 ```
+
+## FieldState
+
+## [formField]
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+~~~
+```
+## FieldTree
+1. `form(Model)` lager et ~~signal form~~ `FieldTree`
+1. Strukturen til et `FieldTree` speiler `Model` - helt eller delvis
+1. Et felt i et `FieldTree` er også et `FieldTree`
+
+## FieldState
+
+## [formField]
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree]
+~~~
+```
+## FieldTree
+
+## FieldState
+
+## [formField]
+---
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree ]
+~~~
+```
+## FieldTree
+
+## FieldState
+1. Lar oss lese eller skrive verdier til et `FieldTree`
+
+## [formField]
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree ]
+~~~
+```
+## FieldTree
+
+## FieldState
+1. Lar oss lese eller skrive verdier til et `FieldTree`
+1. Inneholder all `state` knyttet til et `FieldTree`
+    - value
+    - touched
+    - dirty
+    - hidden
+    - errors
+    - mer...
+
+## [formField]
 
 ---
 
-# Samme struktur inn, samme struktur ut
+# Hva er et signal form?
 
-1. `FieldTree` er en node som beskriver et tre eller et subtre
-1. `FieldTree` speiler modellen du sender inn
-1. Hvis modellen er nøstet, blir `FieldTree` også nøstet
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree ]
+~~~
+```
+## FieldTree
+
+## FieldState
+1. Lar oss lese eller skrive verdier til et `FieldTree`
+1. Inneholder all `state` knyttet til et `FieldTree`
+    - value
+    - touched
+    - dirty
+    - hidden
+    - errors
+    - mer...
+
+  
+### Eksempel
 
 ```typescript
-matchModel = signal({
-  team1: {offense: '', defense: ''},
-  team2: {offense: '', defense: ''},
-  team1GameScore: 0,
-  team2GameScore: 0,
-});
+// FieldTree
+matchForm                             // FieldTree<Match>
+matchForm.team1                       // FieldTree<Team>
+matchForm.team1.players               // FieldTree<Players>
+matchForm.team1.players.offense       // FieldTree<string>
+matchForm.team1.players.defense       // FieldTree<string>
+matchForm.team1.score                 // FieldTree<number>
 
-matchForm = form(matchModel);
+// FieldState
+matchForm()                           // FieldState
+matchForm.team1()                     // FieldState
+matchForm.team1().value()             // { players: { offense: "", defense: ""}}
+matchForm().value().team1.players     // { offense: "", defense: ""}
 
-matchForm                   // FieldTree
-matchForm.team1             // FieldTree
-matchForm.team1.offense     // FieldTree
-matchForm.team1.defense     // FieldTree
-matchForm.team1GameScore    // FieldTree
-matchForm.team2GameScore    // FieldTree
+// value.set
+matchForm.team1.players.offense().value.set("Aki")
 ```
+
+## [formField]
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree ]
+~~~
+```
+## FieldTree
+
+## FieldState
+1. Lar oss lese eller skrive verdier til et `FieldTree`
+1. Inneholder all `state` knyttet til et `FieldTree`
+    - value
+    - touched
+    - dirty
+    - hidden
+    - errors
+    - mer...
+
+  ## [formField]
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree ]
+[ FieldState ] - leser og skriver -> [ FieldTree ]
+~~~
+```
+## FieldTree
+
+## FieldState
+
+## [formField]
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree ]
+[ FieldState ] - leser og skriver -> [ FieldTree ]
+~~~
+```
+## FieldTree
+
+## FieldState
+
+## [formField]
+1. binder `FieldState` og `HTML`
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree ]
+[ FieldState ] - leser og skriver -> [ FieldTree ]
+~~~
+```
+## FieldTree
+
+## FieldState
+
+## [formField]
+1. binder `FieldState` og `HTML`
+
+### Eksempel
+
+```html
+<input type="slider" [formField]="matchForm.team1.score" />
+
+```
+---
+
+# Hva er et signal form?
+
+```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree ]
+[ FieldState ] - leser og skriver -> [ FieldTree ]
+~~~
+```
+## FieldTree
+
+## FieldState
+
+## [formField]
+1. binder `FieldState` og `HTML`
 
 ---
 
-# Tre konsepter
+# Hva er et signal form?
 
-- `FieldTree` er en node i skjematreet
-- `FieldState` er tilstanden til en `FieldTree`-node
-- `[formField]` kobler `FieldTree` til et inputfelt
-
-```typescript
-loginForm.email                                  // FieldTree for email
-loginForm.email()                                // field state for email
-loginForm.email().value()                        // verdien
-loginForm.email().value.set('ada@example.com');  // verdien endres i `FieldState` med value.set()
 ```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree ]
+[ FieldState ] - leser og skriver -> [ FieldTree ]
+[ HTML] <- bindes med\n\[fieldForm\] -> [ FieldState ]
+~~~
+```
+## FieldTree
+
+## FieldState
+
+## [formField]
 
 ---
 
-# Oppdatering via field state
+# Hva er et signal form?
 
-```typescript
-loginForm.email().value.set('ada@example.com');
-loginForm.password().value.set('secret');
 ```
+~~~graph-easy --as=boxart
+[ Model ] - brukes i -> [ form() ]
+[ form() ] - lager et -> [ FieldTree ]
+[ FieldTree ] - har felter som er -> [ FieldTree ]
+[ FieldState ] - leser og skriver -> [ FieldTree ]
+[ HTML] <- bindes med\n\[fieldForm\] -> [ FieldState ]
+~~~
+```
+## FieldTree
+Representerer modellen
 
----
+## FieldState
+Har nyttig informasjon om tilstand
 
-# Det viktigste å ta med seg
-
-- modellen ligger i et signal
-- `form(modelSignal)` lager et `FieldTree`
-- `FieldTree` speiler modellen
-- `[formField]` kobler felt til UI
-- `field()` gir state for feltet
-- `field().value.set(...)` oppdaterer verdien
-
+## [formField]
+binder modellen til HTML
 
 ---
 
@@ -214,3 +589,20 @@ Demoo!
 Presentasjonsprogram:
 
 https://github.com/maaslalani/slides
+
+
+
+---
+`FieldTree` distribueres ned komponenthierarkiet
+
+```
+~~~graph-easy --as=boxart
+[ MatchEntry ] -> [ TeamEntry ] -> [ ScoreEntry]
+[ TeamEntry ] -> [ PlayerEntry ]
+~~~
+```
+```
+~~~graph-easy --as=boxart
+[ FieldTree<Match> ] -> [ FieldTree<Team> ] -> [ FieldTree<number>]
+[ FieldTree<Team> ] -> [ FieldTree<string> ]
+~~~
