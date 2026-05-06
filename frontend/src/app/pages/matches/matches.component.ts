@@ -30,7 +30,7 @@ import { Match, MatchTeam } from '../../models/foosball.models';
             </tr>
           </thead>
           <tbody>
-            @for (match of filteredMatches(); track match.matchId) {
+            @for (match of filteredMatches(); track (match.matchId + '-' + i); let i = $index) {
               @let ordered = winnerFirst(match);
               @let w = ordered[0];
               @let l = ordered[1];

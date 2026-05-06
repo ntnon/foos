@@ -578,10 +578,11 @@ binder modellen til HTML
 
 ```
 ~~~cowsay
-Demoo!
+Demoo
 ~~~
 ```
 
+[http://localhost:63251/](http://localhost:63251/)
 ---
 
 # Takk for meg

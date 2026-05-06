@@ -377,6 +377,7 @@ edge { label-color: green; color: blue; }
 .. Test\n label ..> { arrow-style: closed; } [ Six ] { label: Sixty\n Six\nand\nsix; }
 [ Five ] -  Test label - > { label-color: darkslategrey; color: red; } [ Seven ]
 [ Seven ] -- [ Eight ]
+[ Seven ] -- [ Fuve ]
 [ Five ] --> [ Eight ]
 [ Five ] --> [ Seven ]
 [ Four ] --> [ Fuve ]

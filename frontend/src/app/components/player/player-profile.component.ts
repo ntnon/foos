@@ -165,7 +165,10 @@ import { PlayerNameComponent } from './player-name.component';
                     <span class="text-pitch-200 mx-1">–</span>
                     <span [class]="!won ? 'text-pitch-900' : 'text-pitch-400'">{{ them.gameScore }}</span>
                   </td>
-                  <td class="px-4 py-3 font-medium text-pitch-900">{{ partner(us) }}</td>
+                  <td class="px-4 py-3 cursor-pointer hover:underline font-medium text-pitch-900"
+                      (click)="goToTeam(us)">
+                    {{ partner(us) }}
+                  </td>
                   <td class="px-4 py-3 cursor-pointer hover:underline font-medium text-pitch-900"
                       (click)="goToTeam(them)">
                     {{ them.offense.playerName }} &amp; {{ them.defense.playerName }}

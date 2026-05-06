@@ -154,15 +154,14 @@ export class MatchEntryComponent {
   targetScore = signal<number>(10);
 
   winner = computed(() => {
-    if(this.matchForm().invalid()) return null;
     const v = this.matchModel();
-    if (v.team1GameScore === this.targetScore() && v.team2GameScore === this.targetScore())
-      return null;
-    if (v.team1GameScore === this.targetScore()) return 'BLUE';
-    if (v.team2GameScore === this.targetScore()) return 'RED';
-    return null;
-    }
-  )
+    const target = this.targetScore();
+    const blueWon = v.team1GameScore === target;
+    const redWon = v.team2GameScore === target;
+
+    if (blueWon === redWon) return null;
+    return blueWon ? 'BLUE' : 'RED';
+  });
 
   matchModel = signal<MatchFormModel>({
     team1: {offense: '', defense: '', teamColor: 'BLUE'},

@@ -53,7 +53,7 @@ type SortField = 'name' | 'elo' | 'winRate';
               </tr>
             </thead>
             <tbody>
-              @for (p of sortedPlayers(); track p.playerId; let i = $index) {
+              @for (p of sortedPlayers(); track (p.playerId + '-' + i); let i = $index) {
                 <tr
                   class="border-t border-gray-100 hover:bg-team-blue-50 cursor-pointer transition-colors"
                   (click)="goToPlayer(p.playerId)"
@@ -61,9 +61,9 @@ type SortField = 'name' | 'elo' | 'winRate';
                   <td class="px-4 py-3 font-medium text-pitch-900">
 
                     {{ p.playerName }}
-                    @if (i === 0 && sortField() === 'elo') { <span class="mr-1 text-base" title="1st place">🥇</span> }
-                    @else if (i === 1 && sortField() === 'elo') { <span class="mr-1 text-base" title="2nd place">🥈</span> }
-                    @else if (i === 2 && sortField() === 'elo') { <span class="mr-1 text-base" title="3rd place">🥉</span> }
+                    @if (i === 0 && sortField() === 'elo') { <span class="mr-1 text-xs align-middle" title="1st place">🥇</span> }
+                    @else if (i === 1 && sortField() === 'elo') { <span class="mr-1 text-xs align-middle" title="2nd place">🥈</span> }
+                    @else if (i === 2 && sortField() === 'elo') { <span class="mr-1 text-xs align-middle" title="3rd place">🥉</span> }
                     @if (p.currentWinStreak >= 3) { <span class="ml-1 text-orange-500 font-bold text-xs">🔥 {{ p.currentWinStreak }}</span> }
                   </td>
                   <td class="px-4 py-3 text-center font-mono font-bold">{{ p.eloRating | number:'1.0-0'  }}</td>

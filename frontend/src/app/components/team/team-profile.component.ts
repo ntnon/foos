@@ -37,22 +37,21 @@ import { PlayerNameComponent } from '../player/player-name.component';
               </tr>
             </thead>
             <tbody>
-              <!-- Highlighted: most interesting stats -->
-              <tr class="border-t border-gray-100 bg-pitch-50">
-                <td class="px-4 py-3 font-semibold text-pitch-600">ELO-rating</td>
-                <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">{{ stats()!.eloRating | number:'1.0-0' }}</td>
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">ELO-rating</td>
+                <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.eloRating | number:'1.0-0' }}</td>
               </tr>
-              <tr class="border-t border-gray-100 bg-pitch-50">
-                <td class="px-4 py-3 font-semibold text-pitch-600">Seiersprosent</td>
-                <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">{{ (stats()!.winRate * 100) | number:'1.0-1' }}%</td>
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">Seiersprosent</td>
+                <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ (stats()!.winRate * 100) | number:'1.0-1' }}%</td>
               </tr>
-              <tr class="border-t border-gray-100 bg-pitch-50">
-                <td class="px-4 py-3 font-semibold text-pitch-600">Rekord</td>
-                <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">{{ stats()!.wins }}W – {{ stats()!.losses }}L</td>
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">Rekord</td>
+                <td class="px-4 py-3 font-mono font-bold text-pitch-900">{{ stats()!.wins }}W – {{ stats()!.losses }}L</td>
               </tr>
-              <tr class="border-t border-gray-100 bg-pitch-50">
-                <td class="px-4 py-3 font-semibold text-pitch-600">Nåværende rekke</td>
-                <td class="px-4 py-3 font-mono font-black text-lg text-pitch-900">
+              <tr class="border-t border-gray-100">
+                <td class="px-4 py-3 text-pitch-500">Nåværende rekke</td>
+                <td class="px-4 py-3 font-mono font-bold text-pitch-900">
                   {{ stats()!.currentWinStreak }}
                   @if (stats()!.hotStreak) { <span class="ml-1">🔥</span> }
                 </td>

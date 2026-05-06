@@ -37,7 +37,7 @@ class EloService {
 
         // Initial Rating
         /** Default starting Elo rating for new players/pairs */
-        const val DEFAULT_INITIAL_RATING = 1600.0
+        const val DEFAULT_INITIAL_RATING = 1200.0
 
         // Win/Loss Constants
         /** Score for a win */
@@ -222,7 +222,3 @@ class EloService {
         return Pair(newPlayer1Rating, newPlayer2Rating)
     }
 }
-
-
-
-
