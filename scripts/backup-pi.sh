@@ -11,6 +11,10 @@
 
 set -euo pipefail
 
+# Required for rootless Podman to find the user's socket when invoked from cron,
+# which does not have a full login environment. Without this, podman commands fail.
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+
 CONTAINER_NAME="foos-db"
 DB_USER="postgres"
 DB_NAME="foos"
