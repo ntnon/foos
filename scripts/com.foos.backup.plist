@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
+<!--
+  com.foos.backup.plist — macOS launchd agent
+  Runs backup-pull-mac.sh daily at 10:05 (5 min after the Pi backup at 10:00).
+
+  INSTALL (run once on your Mac):
+    cp /path/to/foos/scripts/com.foos.backup.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.foos.backup.plist
+
+  VERIFY it is loaded:
+    launchctl list | grep com.foos.backup
+
+  RUN MANUALLY (for testing):
+    launchctl start com.foos.backup
+
+  UNINSTALL:
+    launchctl unload ~/Library/LaunchAgents/com.foos.backup.plist
+    rm ~/Library/LaunchAgents/com.foos.backup.plist
+
+  LOGS:
+    ~/foosball-backups/pull.log      (script output)
+    ~/foosball-backups/launchd.log   (stdout/stderr captured by launchd)
+-->
+
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.foos.backup</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/anton/foos/scripts/backup-pull-mac.sh</string>
+  </array>
+
+  <!-- Run daily at 10:05 -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>10</integer>
+    <key>Minute</key>
+    <integer>5</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/anton/foosball-backups/launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/anton/foosball-backups/launchd.log</string>
+
+  <!-- Run as soon as possible if the scheduled time was missed (e.g. Mac was asleep) -->
+  <key>RunAtLoad</key>
+  <false/>
+
+</dict>
+</plist>
