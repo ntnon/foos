@@ -30,7 +30,7 @@ services:
       - foos-network
 
   db:
-    image: postgres:15
+    image: docker.io/library/postgres:15
     container_name: foos-db
     environment:
       POSTGRES_USER: postgres
