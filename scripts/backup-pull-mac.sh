@@ -11,8 +11,8 @@
 #
 # SSH KEY SETUP (one-time, run these on your Mac):
 #   ssh-keygen -t ed25519 -C "mac-to-rohan-backup"   # skip if you have a key
-#   ssh-copy-id anton@rohan                           # copies your public key
-#   ssh anton@rohan "echo ok"                         # should print 'ok', no password
+#   ssh-copy-id anton@foos                           # copies your public key
+#   ssh anton@foos "echo ok"                         # should print 'ok', no password
 #
 # HOW IT WORKS:
 #   - SSHes into anton@rohan to find the Podman backup volume path
@@ -23,7 +23,7 @@
 
 set -euo pipefail
 
-PI_HOST="anton@rohan"
+PI_HOST="anton@foos.local"
 RETAIN_DAYS=30
 LOCAL_BACKUP_DIR="${HOME}/foosball-backups"
 LOG_FILE="${LOCAL_BACKUP_DIR}/pull.log"
